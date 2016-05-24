@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/23 11:02:51 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/05/23 12:26:06 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/05/24 13:47:25 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		main(int ac, char **av)
 			}
 		else if (line && *line)
 		{
-			if (in_path(line, cin_c2c("PATH", environ)))
+			if ((line = in_path(line, cin_c2c("PATH", (char**)environ))))
 			{
 				if (!father)
 					father = fork();
@@ -48,6 +48,8 @@ int		main(int ac, char **av)
 				else if (father > 0)
 					wait(NULL);
 			}
+			else
+				ft_putendl("command not found");
 		}
 		else
 			if (!line && !*line)

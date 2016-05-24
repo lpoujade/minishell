@@ -6,13 +6,13 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/23 12:12:22 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/05/23 12:25:53 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/05/24 13:47:26 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*cin_c2c(char *c1, char const **c2)
+char	*cin_c2c(char *c1, char **c2)
 {
 	int	c;
 
@@ -22,17 +22,17 @@ char	*cin_c2c(char *c1, char const **c2)
 	return (*(c2 + c));
 }
 
-int		in_path(char *cmd, char *path)
+char	*in_path(char *cmd, char *path)
 {
 	char	**dis_path;
 	int		c;
 
 	c = 0;
 	dis_path = ft_strsplit(path, ':');
-	while (access(ft_strjoin(*(dis_path + c), cmd), X_OK))
+	while (dis_path[c] && access(ft_strjoin(dis_path[c], ft_strjoin("/", cmd)), X_OK))
 		c++;
-	if (*(dis_path + c))
-		return (1);
+	if (dis_path[c])
+		return (ft_strjoin(dis_path[c], ft_strjoin("/", cmd)));
 	else
-		return (0);
+		return (NULL);
 }
