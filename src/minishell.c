@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/23 11:02:51 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/05/24 13:47:25 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/05/26 16:57:26 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int		main(int ac, char **av)
 			exit (127);
 		if (!ft_strcmp(line, "exit"))
 			return (EXIT_SUCCESS);
+		else if (!ft_strcmp(line, "whereami"))
+			ft_putendl(ft_itoa(father));
 		else if (!ft_strcmp(line, "env"))
 			while (*(environ + c))
 			{
@@ -44,7 +46,10 @@ int		main(int ac, char **av)
 				if (!father)
 					father = fork();
 				if (!father)
+				{
 					execve(line, av, NULL);
+					return (0);
+				}
 				else if (father > 0)
 					wait(NULL);
 			}
