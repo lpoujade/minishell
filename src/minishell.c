@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/23 11:02:51 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/05/26 16:57:26 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/06/07 14:32:29 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ int		main(int ac, char **av)
 					father = fork();
 				if (!father)
 				{
-					execve(line, av, NULL);
+					execv(line, av, NULL);
 					return (0);
 				}
-				else if (father > 0)
+				if (father > 0)
 					wait(NULL);
 			}
 			else
@@ -59,5 +59,8 @@ int		main(int ac, char **av)
 		else
 			if (!line && !*line)
 				return (EXIT_SUCCESS);
+		if (line)
+			free (line);
 	}
+	return (0);
 }
