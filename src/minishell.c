@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/23 11:02:51 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/06/07 14:32:29 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/06/11 11:50:13 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int		main(int ac, char **av)
 
 	father = 0;
 	line = NULL;
+	if (!*environ)
+		return (EXIT_FAILURE);
 	while (1)
 	{
 		ft_putstr("$> ");
@@ -46,15 +48,13 @@ int		main(int ac, char **av)
 				if (!father)
 					father = fork();
 				if (!father)
-				{
-					execv(line, av, NULL);
-					return (0);
-				}
+					execv(line, av);
 				if (father > 0)
-					wait(NULL);
+					waitpid(father, NULL, 0);
 			}
 			else
 				ft_putendl("command not found");
+			father = 0;
 		}
 		else
 			if (!line && !*line)
