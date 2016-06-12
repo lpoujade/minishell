@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/12 12:24:23 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/06/12 13:48:51 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/06/12 15:13:25 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,24 +24,21 @@ void	bi_cd(char **av)
 	setenv("OLDPWD", npath, 1);
 	free(npath);
 	npath = NULL;
-	if (!av || **av == '-')
-	{
-		if (av)
-		{
-			ft_putendl(oldpwd);
-			npath = oldpwd;
-		}
-		else
+	if (!*av)
 		   npath = getenv("HOME");
+	else if (**av == '-')
+	{
+		npath = oldpwd;
+		ft_putendl(oldpwd);
 	}
 	else if (*av)
 	{
-		if ((!(access(*av, X_OK)) || !*av))
+		if ((!(access(*av, X_OK))))
 			npath = *av;
 		else
 			ft_putendl("directory not accessible");
 	}
-	if (npath)
+	if (npath && *npath)
 		chdir(npath);
 	else
 		ft_putendl("NO PATH");
