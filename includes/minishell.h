@@ -15,9 +15,14 @@
 
 # include <unistd.h>
 # include <stddef.h>
+# include <sys/wait.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <errno.h>
 # include "libft.h"
 
-void	bi_cd(char **av);
+int		bi_cd(char **av);
+int		env(char **av);
 void	sp_prompt(void);
 int		command(char *line);
 char	*in_path(char *cmd, char *path);

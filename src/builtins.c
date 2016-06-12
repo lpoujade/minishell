@@ -12,7 +12,9 @@
 
 #include "minishell.h"
 
-void	bi_cd(char **av)
+extern char const **environ;
+
+int		bi_cd(char **av)
 {
 	int	c;
 	char	*oldpwd;
@@ -41,5 +43,37 @@ void	bi_cd(char **av)
 	if (npath && *npath)
 		chdir(npath);
 	else
-		ft_putendl("NO PATH");
+		return (-1);
+	return (0);
+}
+
+int		env(char **av)
+{
+	int	c;
+
+	c = 0;
+	errno = 0;
+	if (!*av)
+		while (*(environ + c))
+		{
+			ft_putendl(*(environ + c));
+			c++;
+		}
+	else if (*((*av) + 1) == 'i')
+		; // forkexec ( cmd ; env = NULL )
+	else if (*((*av) + 1) == 'u')
+	{
+		if (!*(av + 1))
+			ft_putendl("which one ?");
+		else if (unsetenv(*(av + 1)))
+			perror("minishell: env()");
+	}
+	else
+	{
+		if (!*(av + 1))
+			ft_putendl("USAGE");
+		else if (setenv(*av, *(av + 1), 1))
+			perror("minishell: env()");
+	}
+	return (0);
 }

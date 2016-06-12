@@ -70,11 +70,7 @@ int		command(char *line)
 		else if (!ft_strcmp(*av, "cd"))
 			bi_cd(av + 1);
 		else if (!ft_strcmp(*av, "env"))
-			while (*(environ + c))
-			{
-				ft_putendl(*(environ + c));
-				c++;
-			}
+			env(av + 1);
 		else if (!(access(*av, X_OK)))
 			forkexec(*av, av);
 		else if ((*av = in_path(*av, path)))
