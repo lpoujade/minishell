@@ -1,0 +1,22 @@
+
+						MINISHELL
+
+- env: path | try void env (default path ?)
+
+- signals
+
+- PS1 var + mini conf file | --opts
+
+					---------------
+
+- INIT:
+	- get env to struct env (?)
+	- if no env, set default values
+	- set signals handler
+
+- LOOP:
+	- set & print prompt
+	- get & slit line
+		- split for ';' or "&&"
+		- thats commands; then split for ' '
+	- for each cmd, find & exec

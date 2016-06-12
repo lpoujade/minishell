@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/23 12:12:22 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/05/24 13:47:26 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/06/12 13:25:01 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ char	*in_path(char *cmd, char *path)
 
 	c = 0;
 	dis_path = ft_strsplit(path, ':');
-	while (dis_path[c] && access(ft_strjoin(dis_path[c], ft_strjoin("/", cmd)), X_OK))
+	while (dis_path[c] && access(ft_strjoin(dis_path[c],
+					ft_strjoin("/", cmd)), X_OK))
 		c++;
 	if (dis_path[c])
 		return (ft_strjoin(dis_path[c], ft_strjoin("/", cmd)));

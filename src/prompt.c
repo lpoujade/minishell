@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/05/23 11:19:44 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/06/12 12:28:14 by lpoujade         ###   ########.fr       */
+/*   Created: 2016/06/12 11:40:05 by lpoujade          #+#    #+#             */
+/*   Updated: 2016/06/12 12:23:35 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-# include <unistd.h>
-# include <stddef.h>
-# include "libft.h"
+void	sp_prompt(void)
+{
+	char	*prompt;
 
-void	bi_cd(char **av);
-void	sp_prompt(void);
-int		command(char *line);
-char	*in_path(char *cmd, char *path);
-char	*cin_c2c(char *c1, char **c2);
-
-#endif
+	prompt = NULL;
+	prompt = getcwd(prompt, 0);
+	ft_putstr(prompt); ft_putstr(" > ");
+	free (prompt);
+	return ;
+}
