@@ -4,8 +4,12 @@
 - env: path | try void env (default path ?)
 
 - signals
+	- approfondir: SIGSEV / childs etc
 
 - PS1 var + mini conf file | --opts
+	- PS1 with basics (%~, %m …) formatter from zsh
+	- alias
+	- XXXX=xxxx vars (export)
 
 					---------------
 

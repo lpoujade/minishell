@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/12 12:24:23 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/06/13 13:55:06 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/06/13 14:36:00 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,11 @@ int		bi_cd(char **av)
 	oldpwd = NULL;
 	if (getenv("OLDPWD"))
 		oldpwd = ft_strdup(getenv("OLDPWD"));
-	npath = getcwd(NULL, 0);
-	setenv("OLDPWD", npath, 1);
-	free(npath);
+	if ((npath = getcwd(NULL, 0)))
+	{
+		free(npath);
+		setenv("OLDPWD", npath, 1);
+	}
 	npath = NULL;
 	if (!*av)
 		   npath = getenv("HOME");
@@ -38,7 +40,7 @@ int		bi_cd(char **av)
 		if ((!(access(*av, X_OK))))
 			npath = *av;
 		else
-			ft_putendl("directory not accessible");
+			ft_putendl("cd: Directory not accessible");
 	}
 	if (npath && *npath)
 		chdir(npath);
@@ -70,7 +72,7 @@ int		env(char **av)
 		if (!*(av + 1))
 			ft_putendl("which one ?");
 		else if (unsetenv(*(av + 1)))
-			perror("minishell: env()");
+			ft_putendl("env: error");
 	}
 	else
 	{
