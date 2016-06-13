@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/23 12:12:22 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/06/12 13:25:01 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/06/13 22:55:10 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,49 @@ char	*cin_c2c(char *c1, char **c2)
 	return (*(c2 + c));
 }
 
-char	*in_path(char *cmd, char *path)
+static inline
+char	*cjoin(char *path, char *cmd)
 {
-	char	**dis_path;
+	char	*ret;
 	int		c;
+	int		i;
 
 	c = 0;
-	dis_path = ft_strsplit(path, ':');
-	while (dis_path[c] && access(ft_strjoin(dis_path[c],
-					ft_strjoin("/", cmd)), X_OK))
+	i = 0;
+	ret = malloc(ft_strlen(cmd) + ft_strlen(cmd) - ft_strlen(ft_strchr(cmd, ':')));
+	while (path[c] && path[c] != ':')
+	{
+		ret[c] = path[c];
 		c++;
-	if (dis_path[c])
-		return (ft_strjoin(dis_path[c], ft_strjoin("/", cmd)));
-	else
-		return (NULL);
+	}
+	ret[c] = '/';
+	c++;
+	while (cmd[i])
+	{
+		ret[c + i] = cmd[i];
+		i++;
+	}
+	ret[c + i] = 0;
+	return (ret);
+}
+
+char	*in_path(char *cmd, char *path)
+{
+	char	*tpath;
+	char	*ccm;
+	int		c;
+
+	tpath = path;
+	ccm = ft_strdup(cmd);
+	c = 0;
+	while (access((cmd = cjoin(tpath, ccm)), X_OK) && (tpath = ft_strchr(tpath, ':')))
+	{
+		c++;
+		tpath += 1;
+		free(cmd);
+	}
+	if (!tpath)
+		cmd = NULL;
+	free(ccm);
+	return (cmd);
 }

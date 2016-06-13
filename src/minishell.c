@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/23 11:02:51 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/06/13 15:28:41 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/06/13 22:13:33 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,13 @@ void	sig_handlers_set(void)
 
 	c = 0;
 	while (++c <= 31)
-		signal(c, &sighandler);
+		if (c != SIGKILL && c != SIGSTOP && c != SIGSEGV && c != SIGBUS)
+		if (signal(c, &sighandler) == SIG_ERR)
+		{
+			ft_putstr_fd("minishell: signal ", 2);
+			ft_putnbr_fd(c, 2);
+			perror(" not set");
+		}
 }
 
 int		main(void)
@@ -28,13 +34,17 @@ int		main(void)
 	char	**cmds;
 
 	sig_handlers_set();
+	/*
+	parse_env_conf((*(av + 1) && *(av + 2) && **(av + 1) == '-'
+			&& **((av + 1) + 1) = 'c') ? *(av + 2) : NULL);
+			*/
 	line = NULL;
 	while (1)
 	{
 		sp_prompt();
 		if (get_next_line(0, &line) < 0)
 			exit(EXIT_FAILURE);
-		if (line && (cmds = ft_strsplit(line, ';')))
+		if (line && (cmds = ft_strsplit(line, ";")))
 			while (*cmds)
 			{
 				command(*cmds);

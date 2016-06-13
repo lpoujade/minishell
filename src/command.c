@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/13 12:37:22 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/06/13 16:11:06 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/06/13 20:12:43 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int		command(char *line)
 	c = 0;
 	if (line && *line)
 	{
-		av = ft_strsplit(line, ' ');
+		av = ft_strsplit(line, "\t ");
 		if (!ft_strcmp(*av, "exit"))
 			exit(EXIT_SUCCESS);
 		else if (!ft_strcmp(*av, "cd"))

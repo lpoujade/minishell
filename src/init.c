@@ -1,33 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/06/13 12:41:33 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/06/13 22:13:16 by lpoujade         ###   ########.fr       */
+/*   Created: 2016/06/13 20:28:49 by lpoujade          #+#    #+#             */
+/*   Updated: 2016/06/13 21:51:37 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include "minishell.h"
 
-void	sighandler(int nb)
+int		parse_env_conf(char *conffile)
 {
-	if (nb == SIGINT)
-	{
-		ft_putendl("\nKeyboard interrupt");
-		sp_prompt();
-	}
-	else if (nb == SIGSEGV)
-		ft_putendl("\nSomething bad happen ! but that's ok now");
-	else if (nb == SIGCHLD || nb == SIGWINCH)
+	if (conffile)
 		;
-	else
-	{
-		ft_putstr("SIGNAL ");
-		ft_putnbr(nb);
-		ft_putchar('\n');
-	}
-	return ;
+	return (0);
 }

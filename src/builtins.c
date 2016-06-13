@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/12 12:24:23 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/06/13 14:36:00 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/06/13 20:44:54 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,18 +50,22 @@ int		bi_cd(char **av)
 	return (0);
 }
 
+/*
+** env launch a process with enventually modified actual env
+** if no process, env is displayed
+** env [-u NAME] [NAME=value] [cmd]
+** -u delete NAME
+** -i clear env
+*/
+
 int		env(char **av)
 {
 	int	c;
 
 	c = 0;
-	errno = 0;
 	if (!*av)
 		while (*(environ + c))
-		{
-			ft_putendl(*(environ + c));
-			c++;
-		}
+			ft_putendl(*(environ + c++));
 	else if (*((*av) + 1) == 'i')
 	{
 		ft_putendl(*(av + 2));
