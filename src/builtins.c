@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/12 12:24:23 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/06/13 20:44:54 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/06/14 13:48:01 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,24 @@ int		bi_cd(char **av)
 ** -i clear env
 */
 
+int		bi_env(char **av)
+{
+	int	c;
+
+	c = 0;
+	ft_putendl(*av);
+	if (!*av)
+		while (*(environ + c))
+			ft_putendl(*(environ + c++));
+	else if (**av == '-' && **(av + 1) == 'u')
+		;
+	else if (**av == '-' && **(av + 1) == 'i' && *(av + 1))
+		forkexec(*(av + 1), *(av + 2) ? (av + 2) : NULL, NULL);
+	else if (**av == '-' && **(av + 1) == 'i')
+		;
+	return (0);
+}
+
 int		env(char **av)
 {
 	int	c;
@@ -69,7 +87,7 @@ int		env(char **av)
 	else if (*((*av) + 1) == 'i')
 	{
 		ft_putendl(*(av + 2));
-		forkexec(*(av + 2), (av + 3) ? av + 3 : NULL);
+		forkexec(*(av + 2), (av + 3) ? av + 3 : NULL, NULL);
 	}
 	else if (*((*av) + 1) == 'u')
 	{

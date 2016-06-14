@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/23 11:19:44 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/06/13 21:51:37 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/06/14 13:45:31 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,12 @@
 extern char const **environ;
 
 int		bi_cd(char **av);
+int		bi_env(char **av);
 int		env(char **av);
 void	sp_prompt(void);
 int		command(char *line);
 char	*in_path(char *cmd, char *path);
 char	*cin_c2c(char *c1, char **c2);
 void	sighandler(int nb);
-void	forkexec(char *cmd, char **av);
+void	forkexec(char *cmd, char **av, char **env);
 #endif
