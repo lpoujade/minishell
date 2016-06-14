@@ -11,6 +11,14 @@
 	- alias
 	- XXXX=xxxx vars (export)
 
+- conf/hist/… files:
+	- check $HOME; rights; existing files; mkdir
+
+- in conf: + in **argv
+	- history file
+	- nb of history line (in RAM, in file)
+	- 
+
 					---------------
 
 - INIT:
