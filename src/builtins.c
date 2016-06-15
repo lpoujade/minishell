@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/12 12:24:23 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/06/14 13:48:01 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/06/15 19:39:02 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		bi_cd(char **av)
 	}
 	npath = NULL;
 	if (!*av)
-		   npath = getenv("HOME");
+		npath = getenv("HOME");
 	else if (**av == '-' && oldpwd)
 	{
 		npath = oldpwd;
