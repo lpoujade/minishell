@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/23 12:12:22 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/06/15 15:55:10 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/06/15 17:08:58 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,11 @@ char	*cjoin(char *path, char *cmd)
 	int		i;
 
 	c = 0;
-	i = 0;
-	ret = malloc(ft_strlen(cmd) + ft_strlen(cmd) - ft_strlen(ft_strchr(cmd, ':')));
+	if (!(ret = malloc(ft_strlen(cmd) + ft_strlen(cmd) - ft_strlen(ft_strchr(cmd, ':')))))
+	{
+		perror("minishell: cjoin");
+		exit (EXIT_FAILURE);
+	}
 	while (path[c] && path[c] != ':')
 	{
 		ret[c] = path[c];
@@ -39,12 +42,14 @@ char	*cjoin(char *path, char *cmd)
 	}
 	ret[c] = '/';
 	c++;
+	i = 0;
 	while (cmd[i])
 	{
 		ret[c + i] = cmd[i];
 		i++;
 	}
 	ret[c + i] = 0;
+	ft_putstr("Trying: "); ft_putendl(ret);
 	return (ret);
 }
 
@@ -54,19 +59,19 @@ char	*in_path(char *cmd, char *path)
 	char	*ccm;
 	int		c;
 
+	ft_putstr("Searching "); ft_putendl(cmd);
 	tpath = path;
-	ccm = ft_strdup(cmd);
-	free(cmd);
 	c = 0;
-	while (tpath && access((cmd = cjoin(tpath, ccm)), X_OK))
+	while (tpath && access((ccm = cjoin(tpath, cmd)), X_OK))
 	{
 		if ((tpath = ft_strchr(tpath, ':')))
+		{
 			tpath += 1;
+			free(ccm);
+		}
 		c++;
-		free(cmd);
 	}
 	if (!tpath)
-		cmd = NULL;
-	free(ccm);
-	return (cmd);
+		ccm = NULL;
+	return (ccm);
 }

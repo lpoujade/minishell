@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/23 11:02:51 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/06/15 15:41:09 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/06/15 17:15:42 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int		exec_line(char *line)
 		while (cmds[c])
 		{
 			command(cmds[c]);
-			free(*(cmds + c));
+			//free(cmds[c]);
 			c++;
 		}
 		free (cmds);
