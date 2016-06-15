@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/13 12:37:22 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/06/15 19:51:46 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/06/15 23:18:58 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ static int	in_builtins(char **av)
 		bi_cd(av + 1);
 	else if (!ft_strcmp(*av, "env"))
 		bi_env(av + 1);
+	else if (!ft_strcmp(*av, "setenv") || !ft_strcmp(*av, "unsetenv"))
+		bi_suenv(av);
 	else
 		return (0);
 	return (1);

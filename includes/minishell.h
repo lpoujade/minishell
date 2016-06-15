@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/23 11:19:44 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/06/15 19:16:21 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/06/15 23:18:52 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ extern char const **environ;
 
 int		bi_cd(char **av);
 int		bi_env(char **av);
-int		env(char **av);
+int		bi_suenv(char **av);
 void	sp_prompt(void);
 int		exec_line(char *line);
 int		command(char *line);

@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/23 11:02:51 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/06/15 19:37:45 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/06/15 23:27:08 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int					exec_line(char *line)
 {
 	char	**cmds;
 	int		c;
-	//char	**if_cmds;
 
 	c = 0;
 	if (!line)
@@ -49,14 +48,6 @@ int					exec_line(char *line)
 	return (0);
 }
 /*
-   if (0 && (if_cmds = ft_strsplit(*cmds, "&")))
-   while (*if_cmds)
-   {
-   if (!command(*if_cmds))
-   break ;
-   free(*if_cmds);
-   if_cmds++;
-   }
    */
 
 int					main(void)
