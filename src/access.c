@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/23 12:12:22 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/06/13 22:55:10 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/06/15 15:55:10 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,13 @@ char	*in_path(char *cmd, char *path)
 
 	tpath = path;
 	ccm = ft_strdup(cmd);
+	free(cmd);
 	c = 0;
-	while (access((cmd = cjoin(tpath, ccm)), X_OK) && (tpath = ft_strchr(tpath, ':')))
+	while (tpath && access((cmd = cjoin(tpath, ccm)), X_OK))
 	{
+		if ((tpath = ft_strchr(tpath, ':')))
+			tpath += 1;
 		c++;
-		tpath += 1;
 		free(cmd);
 	}
 	if (!tpath)

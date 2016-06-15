@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/13 12:37:22 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/06/14 13:45:14 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/06/15 15:51:40 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int		command(char *line)
 	int		c;
 	char	*path;
 	char	*cmd;
+	char	**oav;
 
 	cmd = NULL;
 	path = getenv("PATH");
@@ -45,6 +46,7 @@ int		command(char *line)
 	if (line && *line)
 	{
 		av = ft_strsplit(line, "\t ");
+		oav = av;
 		if (!ft_strcmp(*av, "exit"))
 			exit(EXIT_SUCCESS);
 		else if (!ft_strcmp(*av, "cd"))
@@ -52,11 +54,19 @@ int		command(char *line)
 		else if (!ft_strcmp(*av, "env"))
 			bi_env(av + 1);
 		else if (!(access(*av, X_OK)) || (path && (cmd = in_path(*av, path))))
+		{
 			forkexec(cmd ? cmd : *av, av, (char**)environ);
+			free(cmd);
+		}
 		else
 		{
 			ft_putstr(*av);
 			ft_putendl(": command not found");
+		}
+		while (*oav)
+		{
+			free (*oav);
+			oav++;
 		}
 	}
 	return (0);
