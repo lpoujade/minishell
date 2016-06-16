@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/13 12:37:22 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/06/15 23:18:58 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/06/16 17:51:07 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,10 @@ int			command(char *line)
 	char	*path;
 	char	*cmd;
 	int		ret;
+	short	c;
 
 	ret = 0;
+	c = 0;
 	cmd = NULL;
 	path = getenv("PATH");
 	av = ft_strsplit(line, "\t ");
@@ -66,12 +68,12 @@ int			command(char *line)
 		else
 			ft_putendl((cmd = ft_strjoin(*av, ": command not found")));
 	}
-	while (*av)
+	while (av[c])
 	{
-		free(*av);
-		*av = NULL;
-		av++;
+		free(*(av + c));
+		c++;
 	}
+	free(av);
 	if (cmd)
 		free(cmd);
 	return (ret);
