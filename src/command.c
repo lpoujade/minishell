@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/13 12:37:22 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/06/16 17:51:07 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/06/17 19:22:15 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,20 @@ int			forkexec(char *cmd, char **av, char **env)
 static int	in_builtins(char **av)
 {
 	if (!ft_strcmp(*av, "exit"))
-		exit(EXIT_SUCCESS);
+		exit(*(av + 1) ? ft_atoi(*(av + 1)) : EXIT_SUCCESS);
 	else if (!ft_strcmp(*av, "cd"))
 		bi_cd(av + 1);
 	else if (!ft_strcmp(*av, "env"))
 		bi_env(av + 1);
+	else if (!ft_strcmp(*av, "echo"))
+	{
+		while (*av++)
+		{
+			ft_putstr(*av);
+			ft_putchar(' ');
+		}
+		ft_putchar('\n');
+	}
 	else if (!ft_strcmp(*av, "setenv") || !ft_strcmp(*av, "unsetenv"))
 		bi_suenv(av);
 	else
@@ -60,7 +69,7 @@ int			command(char *line)
 	c = 0;
 	cmd = NULL;
 	path = getenv("PATH");
-	av = ft_strsplit(line, "\t ");
+	av = ft_strsplit(line, "\t  ");
 	if (!in_builtins(av))
 	{
 		if (!(access(*av, X_OK)) || (path && (cmd = in_path(*av, path))))

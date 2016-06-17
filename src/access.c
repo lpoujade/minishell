@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/23 12:12:22 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/06/15 19:38:48 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/06/17 18:49:45 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,7 @@ static inline char	*cjoin(char *path, char *cmd)
 	errno = 0;
 	if (!(ret = malloc(ft_strlen(cmd) + 1 +
 					(ft_strlen(path) - ft_strlen(ft_strchr(path, ':'))))))
-	{
-		perror("minishell: cjoin");
 		exit(EXIT_FAILURE);
-	}
 	while (path[c] && path[c] != ':')
 	{
 		ret[c] = path[c];

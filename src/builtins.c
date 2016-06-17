@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/12 12:24:23 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/06/15 23:16:36 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/06/17 19:00:03 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,16 @@ int		bi_env(char **av)
 	int	c;
 
 	c = 0;
-	ft_putendl(*av);
 	if (!*av)
 		while (*(environ + c))
-			ft_putendl(*(environ + c++));
+		{
+			ft_putendl(*(environ + c));
+			c++;
+		}
 	else if (**av == '-' && **(av + 1) == 'u')
 		;
-	else if (**av == '-' && **(av + 1) == 'i' && *(av + 1))
-		forkexec(*(av + 1), *(av + 2) ? (av + 2) : NULL, NULL);
+	else if (**av == '-' && *(*av + 1) == 'i' && *(av + 1))
+		forkexec(*(av + 1), (av + 1), NULL);
 	else if (**av == '-' && **(av + 1) == 'i')
 		;
 	return (0);
@@ -88,16 +90,12 @@ int		bi_suenv(char **av)
 		return (-1);
 	else if (**av == 's')
 	{
-		if (!*(av + 1))
-			ft_putendl("which one ?");
-		else if (setenv(*(av + 1), *(av + 2), 1))
-			ft_putendl("env: error");
+		if (*(av + 1) && setenv(*(av + 1), ft_strchr(*(av + 1), '='), 1))
+			ft_putstr("env: error");
 	}
 	else if (**av == 'u')
 	{
-		if (!*(av + 1))
-			ft_putendl("which one ?");
-		else if (unsetenv(*(av + 1)))
+		if (*(av + 1) && unsetenv(*(av + 1)))
 			ft_putendl("env: error");
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/23 11:02:51 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/06/16 17:49:18 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/06/17 18:33:11 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,19 +48,17 @@ int					exec_line(char *line)
 	return (0);
 }
 
-/*
-** parse_env_conf((*(av + 1) && *(av + 2) && **(av + 1) == '-'
-** && **((av + 1) + 1) = 'c') ? *(av + 2) : NULL);
-*/
-
-int					main(void)
+int					main(int ac, char **av)
 {
 	char	*line;
 
+	(void)ac;
 	sig_handlers_set();
-	line = NULL;
+	parse_env_conf((*(av + 1) && *(av + 2) && **(av + 1) == '-'
+				&& **((av + 1) + 1) == 'c') ? *(av + 2) : NULL);
 	while (1)
 	{
+		line = NULL;
 		sp_prompt();
 		if (get_next_line(0, &line) < 0)
 			exit(EXIT_FAILURE);
@@ -68,7 +66,6 @@ int					main(void)
 			exit(EXIT_SUCCESS);
 		if (line && *line)
 			free(line);
-		line = NULL;
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/23 11:19:44 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/06/15 23:18:52 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/06/17 18:17:20 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@
 # include <errno.h>
 # include "libft.h"
 
-extern char const **environ;
+extern char	**environ;
 
+int		parse_env_conf(char *conffile);
 int		bi_cd(char **av);
 int		bi_env(char **av);
 int		bi_suenv(char **av);
