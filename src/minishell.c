@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/23 11:02:51 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/06/17 18:33:11 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/06/19 16:45:01 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,26 @@ static inline void	sig_handlers_set(void)
 int					exec_line(char *line)
 {
 	char	**cmds;
+	char	*tmp;
 	int		c;
 
 	c = 0;
+	tmp = NULL;
 	if (!line)
-		return (1);
+		return (0);
 	if ((cmds = ft_strsplit(line, ";")))
 	{
 		while (cmds[c])
 		{
-			command(cmds[c]);
+			if (*(tmp = ft_strtrim(cmds[c])) != '#')
+				command(cmds[c]);
 			free(cmds[c]);
+			free(tmp);
 			c++;
 		}
 		free(cmds);
 	}
-	return (0);
+	return (1);
 }
 
 int					main(int ac, char **av)
@@ -62,7 +66,7 @@ int					main(int ac, char **av)
 		sp_prompt();
 		if (get_next_line(0, &line) < 0)
 			exit(EXIT_FAILURE);
-		if (exec_line(line))
+		if (!exec_line(line))
 			exit(EXIT_SUCCESS);
 		if (line && *line)
 			free(line);

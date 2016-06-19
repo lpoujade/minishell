@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/12 12:24:23 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/06/17 19:00:03 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/06/19 17:04:56 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int					bi_cd(char **av)
 	flag = 0;
 	curpath = NULL;
 	oldpwd = getcwd(NULL, 0);
-	if (!*av && !getenv("HOME")) // OR oldpwd + error msg ?
+	if (!*av && !getenv("HOME"))
 		return (-1);
 	if (*av && **av == '-' && (*(*av + 1) == 'P' || *(*av + 1) == 'L') &&
 			!*(*av + 2))
@@ -61,7 +61,7 @@ int					bi_cd(char **av)
 ** -i clear env
 */
 
-int		bi_env(char **av)
+int					bi_env(char **av)
 {
 	int	c;
 
@@ -81,17 +81,17 @@ int		bi_env(char **av)
 	return (0);
 }
 
-int		bi_suenv(char **av)
+int					bi_suenv(char **av)
 {
 	int	c;
 
 	c = 0;
 	if (!*av)
 		return (-1);
-	else if (**av == 's')
+	else if (**av == 's' && *(av + 1))
 	{
-		if (*(av + 1) && setenv(*(av + 1), ft_strchr(*(av + 1), '='), 1))
-			ft_putstr("env: error");
+		if (setenv(*(av + 1), ft_strchr(*(av + 1), '='), 1))
+			ft_putendl("env: error");
 	}
 	else if (**av == 'u')
 	{
