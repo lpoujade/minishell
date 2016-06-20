@@ -6,7 +6,7 @@
 #    By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/11 13:41:06 by lpoujade          #+#    #+#              #
-#    Updated: 2016/06/13 21:50:48 by lpoujade         ###   ########.fr        #
+#    Updated: 2016/06/20 14:50:31 by lpoujade         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ LDLIBS=-lft
 
 LIB=libft/libft.a
 
-SRC=minishell.c access.c prompt.c builtins.c command.c signals.c init.c
+SRC=minishell.c access.c prompt.c builtins.c command.c signals.c init.c \
+	builtins_cd.c
 OBJ=$(SRC:.c=.o)
 
 SRCS=$(addprefix $(SRCDIR)/,$(SRC))

@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/23 11:19:44 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/06/17 18:17:20 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/06/20 18:16:14 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <errno.h>
+# include <limits.h>
+# include <fcntl.h>
 # include "libft.h"
 
 extern char	**environ;

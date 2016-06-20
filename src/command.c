@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/13 12:37:22 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/06/19 17:06:01 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/06/20 18:43:27 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,23 @@ int			forkexec(char *cmd, char **av, char **env)
 
 static int	in_builtins(char **av)
 {
+	short ret;
+
+	ret = 0;
 	if (!ft_strcmp(*av, "exit"))
 		exit(*(av + 1) ? ft_atoi(*(av + 1)) : EXIT_SUCCESS);
 	else if (!ft_strcmp(*av, "cd"))
-		bi_cd(av + 1);
+		ret = bi_cd(av + 1);
 	else if (!ft_strcmp(*av, "env"))
-		bi_env(av + 1);
+		ret = bi_env(av + 1);
 	else if (!ft_strcmp(*av, "echo"))
 	{
 		while (*av++)
 		{
-			ft_putstr(*av);
+			if (*av && **av == '$')
+				ft_putstr(getenv(*av + 1));
+			else
+				ft_putstr(*av);
 			ft_putchar(' ');
 		}
 		ft_putchar('\n');
@@ -53,8 +59,8 @@ static int	in_builtins(char **av)
 	else if (!ft_strcmp(*av, "setenv") || !ft_strcmp(*av, "unsetenv"))
 		bi_suenv(av);
 	else
-		return (0);
-	return (1);
+		return (404);
+	return (ret);
 }
 
 int			command(char *line)
@@ -70,12 +76,12 @@ int			command(char *line)
 	cmd = NULL;
 	path = getenv("PATH");
 	av = ft_strsplit(line, "\t  ");
-	if (!(ret = in_builtins(av)))
+	if ((ret = in_builtins(av)) != 404)
 		;
 	else if (!(access(*av, X_OK)) || (path && (cmd = in_path(*av, path))))
 		ret = forkexec(cmd ? cmd : *av, av, (char**)environ);
 	else
-		ft_putendl((cmd = ft_strjoin(*av, ": command not found")));
+		ft_putendl((cmd = ft_strjoin("minishell: command not found: ", *av)));
 	while (av[c])
 	{
 		free(*(av + c));

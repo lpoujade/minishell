@@ -6,7 +6,7 @@
 
 4  - if <argv> begin with ".." : go to 6
 
-/!\ POSIX to eclaircir --> if <argv> not in path, check in CDPATHs
+/!\ POSIX to eclaircir --> if <argv> not in current dir, check in CDPATHs
 ( bash : CDPATH first ; zsh : ./ first )
 5  - try 1st value of CDPATH/<argv> ; then try ./<argv> ; then try rest of CDPATH
 		set result to curpath and go to 7
