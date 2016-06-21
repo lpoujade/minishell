@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/13 12:37:22 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/06/20 18:43:27 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/06/21 17:33:30 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,16 @@ int			forkexec(char *cmd, char **av, char **env)
 {
 	pid_t	father;
 	int		ret_value;
+	int		fd;
+	char	head;
 
+	if ((fd = open(cmd, O_RDONLY)) < 0)
+		return (-1);
+	if (!(read(fd, &head, 1)))
+		return (-1);
+	if (head == '#')
+		ft_putendl("SHEBANG");
+	close (fd);
 	ret_value = 0;
 	if ((father = fork()) < 0)
 		exit(EXIT_FAILURE);

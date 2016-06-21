@@ -1,6 +1,0 @@
-echo test
-setenv CDPATH=/nfs/2015/l/lpoujade/projects/:/goinfre/
-ls ; cd /
-echo We are in : $PWD ; echo running $SHELL
-cd minishell ; cat -e auteur
-cd ..

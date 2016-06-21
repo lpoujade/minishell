@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/20 14:50:11 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/06/20 19:55:41 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/06/21 17:27:59 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,13 @@ int					bi_cd(char **av)
 		canon_form(&curpath, oldpwd);
 	if (ft_strlen(curpath) > PATH_MAX)
 		ft_putendl(">PATH_MAX");
-	if (!access(curpath, X_OK) && chdir(curpath))
-		ft_putendl("minishell: chdir fail");
+	if (!access(curpath, X_OK))
+	{
+		if (chdir(curpath))
+			ft_putendl("minishell: chdir fail");
+	}
+	else
+		ft_putendl("directory not accessible");
 	if (oldpwd)
 	{
 		setenv("OLDPWD", oldpwd, 1);
