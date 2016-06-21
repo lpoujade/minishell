@@ -24,13 +24,19 @@
 # include <fcntl.h>
 # include "libft.h"
 
+# define MALLOC_ERROR	-2
+# define HOSTNAME_MAX	100
+# define PS1_MAX		100
+
+# define ft_putendl(x) ft_putendl_fd(x, 1)
+
 extern char	**environ;
 
 int		parse_env_conf(char *conffile);
 int		bi_cd(char **av);
 int		bi_env(char **av);
 int		bi_suenv(char **av);
-void	sp_prompt(void);
+void	sp_prompt(char *ps1);
 int		exec_line(char *line);
 int		command(char *line);
 char	*in_path(char *cmd, char *path);

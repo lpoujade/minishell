@@ -48,6 +48,7 @@ static inline char	*tr_eq(char *s)
 	c = ft_strclchr(s, '=');
 	new = ft_strnew(c);
 	ft_strncat(new, s, c);
+	ft_putendl(new);
 	return (new);
 }
 

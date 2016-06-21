@@ -71,7 +71,7 @@ int					main(int ac, char **av)
 	{
 		line = NULL;
 		if (fd == 0)
-			sp_prompt();
+			sp_prompt(NULL);
 		if (get_next_line(fd, &line) < 0)
 			exit(EXIT_FAILURE);
 		if (!exec_line(line) && fd == 0)
