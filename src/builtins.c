@@ -32,11 +32,11 @@ int					bi_env(char **av)
 			c++;
 		}
 	else if (**av == '-' && **(av + 1) == 'u')
-		;
+	{}
 	else if (**av == '-' && *(*av + 1) == 'i' && *(av + 1))
 		forkexec(*(av + 1), (av + 1), NULL);
 	else if (**av == '-' && **(av + 1) == 'i')
-		;
+	{}
 	return (0);
 }
 
@@ -54,11 +54,9 @@ static inline char	*tr_eq(char *s)
 
 int					bi_suenv(char **av)
 {
-	int		c;
 	char	*var;
 
 	var = NULL;
-	c = 0;
 	if (!*av)
 		return (-1);
 	else if (**av == 's' && *(av + 1))

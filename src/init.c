@@ -33,6 +33,6 @@ int		parse_env_conf(char *conffile)
 	nenv[i] = NULL;
 	environ = nenv;
 	if (conffile)
-		;
+	{}
 	return (0);
 }
