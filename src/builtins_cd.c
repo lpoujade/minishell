@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/20 14:50:11 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/06/21 17:27:59 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/06/22 17:50:57 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,11 @@ int					bi_cd(char **av)
 	char	*curpath;
 	char	*oldpwd;
 
+	if (!(oldpwd = malloc(PATH_MAX)))
+		return (-1);
 	flag = 0;
 	curpath = NULL;
-	oldpwd = getcwd(NULL, 0);
+	oldpwd = getcwd(oldpwd, PATH_MAX) ?: getenv("PWD");
 	if (!*av && !getenv("HOME"))
 		return (-1);
 	if (ft_strlen(*av) == 2 && **av == '-')
@@ -75,7 +77,8 @@ int					bi_cd(char **av)
 	if (!(curpath = set_curpath(flag ? av + 1 : av)))
 		return (-1);
 	if (flag != 'P')
-		canon_form(&curpath, oldpwd);
+		if (canon_form(&curpath, oldpwd))
+			return (-2);
 	if (ft_strlen(curpath) > PATH_MAX)
 		ft_putendl(">PATH_MAX");
 	if (!access(curpath, X_OK))
@@ -83,15 +86,18 @@ int					bi_cd(char **av)
 		if (chdir(curpath))
 			ft_putendl("minishell: chdir fail");
 	}
+	else if (!access(curpath, F_OK))
+		ft_putendl("No permissions");
 	else
-		ft_putendl("directory not accessible");
+		ft_putendl("No directory");
 	if (oldpwd)
 	{
 		setenv("OLDPWD", oldpwd, 1);
 		free(oldpwd);
 	}
 	setenv("PWD", (oldpwd = getcwd(NULL, 0)), 1);
-	free(oldpwd);
+	if (ft_strcmp(oldpwd, getenv("PWD")))
+		free(oldpwd);
 	if (!*av || (curpath != *av && (**av != '-' || *(*av + 1))))
 		free(curpath);
 	return (0);
