@@ -6,7 +6,7 @@
 #    By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/11 13:41:06 by lpoujade          #+#    #+#              #
-#    Updated: 2016/06/20 14:50:31 by lpoujade         ###   ########.fr        #
+#    Updated: 2016/06/23 04:31:43 by lpoujade         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ LDLIBS=-lft
 LIB=libft/libft.a
 
 SRC=minishell.c access.c prompt.c builtins.c command.c signals.c init.c \
-	builtins_cd.c
+	builtins_cd.c builtins_env.c shell.c
 OBJ=$(SRC:.c=.o)
 
 SRCS=$(addprefix $(SRCDIR)/,$(SRC))
@@ -33,7 +33,6 @@ OBJS=$(addprefix $(OBJDIR)/,$(OBJ))
 # GCOV, llvm specific
 # CFLAGS+=-g -fprofile-arcs -ftest-coverage
 # LDFLAGS+=--coverage
-
 
 all: $(NAME)
 

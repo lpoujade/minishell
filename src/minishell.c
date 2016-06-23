@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/23 11:02:51 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/06/20 18:39:52 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/06/23 04:31:13 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,34 +55,23 @@ int					exec_line(char *line)
 	return (1);
 }
 
+void				exiting(void)
+{
+	ft_putendl("YAY! exiting");
+}
+
 int					main(int ac, char **av)
 {
-	char	*line;
 	int		fd;
 
 	fd = 0;
 	if (ac == 3 && !ft_strcmp(*(av + 1), "-c"))
 		if ((fd = open(*(av + 2), O_RDONLY)) < 0)
-			perror("minishell: open conf file");
+			ft_putendl_fd("minishell: open conf file failed", 2);
 	sig_handlers_set();
 	parse_env_conf((*(av + 1) && *(av + 2) && **(av + 1) == '-'
 				&& **((av + 1) + 1) == 'c') ? *(av + 2) : NULL);
-	while (1)
-	{
-		line = NULL;
-		if (fd == 0)
-			sp_prompt();
-		if (get_next_line(fd, &line) < 0)
-			exit(EXIT_FAILURE);
-		if (!exec_line(line) && fd == 0)
-			exit(EXIT_SUCCESS);
-		else if (fd != 0)
-		{
-			close (fd);
-			fd = 0;
-		}
-		if (line && *line)
-			free(line);
-	}
+	atexit(&exiting);
+	shell_loop(fd);
 	return (0);
 }

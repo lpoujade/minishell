@@ -1,38 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/06/13 20:28:49 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/06/23 02:05:36 by lpoujade         ###   ########.fr       */
+/*   Created: 2016/06/23 04:30:12 by lpoujade          #+#    #+#             */
+/*   Updated: 2016/06/23 04:31:13 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		parse_env_conf(char *conffile)
+void	shell_loop(int fd)
 {
-	char		**nenv;
-	int			c;
-	int			i;
+	char	*line;
 
-	c = 0;
-	i = 0;
-	nenv = NULL;
-	while (environ[c])
-		c++;
-	if (!(nenv = malloc(sizeof(char**) * c)))
-		exit(EXIT_FAILURE);
-	while (i < c)
+	while (1)
 	{
-		nenv[i] = ft_strdup(environ[i]);
-		i++;
+		line = NULL;
+		if (fd == 0)
+			sp_prompt();
+		if (get_next_line(fd, &line) < 0)
+			exit(EXIT_FAILURE);
+		if (!exec_line(line) && fd == 0)
+			exit(EXIT_SUCCESS);
+		else if (fd != 0)
+		{
+			close(fd);
+			fd = 0;
+		}
+		if (line && *line)
+			free(line);
 	}
-	nenv[i] = NULL;
-	environ = nenv;
-	if (conffile)
-		;
-	return (0);
 }

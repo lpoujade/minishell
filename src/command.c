@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/13 12:37:22 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/06/21 17:33:30 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/06/23 05:21:26 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,7 @@ int			forkexec(char *cmd, char **av, char **env)
 {
 	pid_t	father;
 	int		ret_value;
-	int		fd;
-	char	head;
 
-	if ((fd = open(cmd, O_RDONLY)) < 0)
-		return (-1);
-	if (!(read(fd, &head, 1)))
-		return (-1);
-	if (head == '#')
-		ft_putendl("SHEBANG");
-	close (fd);
 	ret_value = 0;
 	if ((father = fork()) < 0)
 		exit(EXIT_FAILURE);
@@ -42,9 +33,10 @@ int			forkexec(char *cmd, char **av, char **env)
 	return (ret_value);
 }
 
-static int	in_builtins(char **av)
+int			in_builtins(char **av)
 {
-	short ret;
+	short	ret;
+	char	*tmp;
 
 	ret = 0;
 	if (!ft_strcmp(*av, "exit"))
@@ -53,6 +45,14 @@ static int	in_builtins(char **av)
 		ret = bi_cd(av + 1);
 	else if (!ft_strcmp(*av, "env"))
 		ret = bi_env(av + 1);
+	else if (!ft_strcmp(*av, "which"))
+	{
+		if (getenv("PATH") && (tmp = in_path(*(av + 1), getenv("PATH"))))
+		{
+			ft_putendl(tmp);
+			free(tmp);
+		}
+	}
 	else if (!ft_strcmp(*av, "echo"))
 	{
 		while (*av++)

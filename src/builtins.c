@@ -6,41 +6,13 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/12 12:24:23 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/06/20 19:26:55 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/06/23 05:19:42 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
-** env launch a process with enventually modified actual env
-** if no process, env is displayed
-** env [-u NAME] [NAME=value] [cmd]
-** -u delete NAME
-** -i clear env
-*/
-
-int					bi_env(char **av)
-{
-	int	c;
-
-	c = 0;
-	if (!*av)
-		while (*(environ + c))
-		{
-			ft_putendl(*(environ + c));
-			c++;
-		}
-	else if (**av == '-' && **(av + 1) == 'u')
-		;
-	else if (**av == '-' && *(*av + 1) == 'i' && *(av + 1))
-		forkexec(*(av + 1), (av + 1), NULL);
-	else if (**av == '-' && **(av + 1) == 'i')
-		;
-	return (0);
-}
-
-static inline char	*tr_eq(char *s)
+char				*tr_eq(char *s)
 {
 	int		c;
 	char	*new;
@@ -53,30 +25,24 @@ static inline char	*tr_eq(char *s)
 
 int					bi_suenv(char **av)
 {
-	int		c;
+	int		ret;
 	char	*var;
 
 	var = NULL;
-	c = 0;
+	ret = 0;
 	if (!*av)
 		return (-1);
 	else if (**av == 's' && *(av + 1))
 	{
-		if (setenv((var = tr_eq(*(av + 1))), ft_strchr(*(av + 1), '='), 1))
-			ft_putendl("minishell: setenv error");
+		var = tr_eq(*(av + 1));
+		ret = setenv(var, ft_strchr(*(av + 1), '='), 1);
 	}
-	else if (**av == 'u')
-	{
-		if (*(av + 1) && unsetenv(*(av + 1)))
-			ft_putendl("minishell: unsetenv error");
-	}
-	else
-	{
-		if (!*(av + 1))
-			ft_putendl("USAGE");
-		else if (setenv(*av, *(av + 1), 1))
-			perror("minishell: env()");
-	}
+	else if (**av == 'u' && *(av + 1))
+		ret = unsetenv(*(av + 1));
+	else if (!*(av + 1))
+		ft_putendl("USAGE");
+	if (ret)
+		ft_putendl("minishell: cannot modify env, or bad arguments");
 	if (var)
 		free(var);
 	return (0);
