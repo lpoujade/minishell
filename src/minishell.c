@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/23 11:02:51 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/06/23 04:31:13 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/06/23 18:26:24 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,39 +27,6 @@ static inline void	sig_handlers_set(void)
 			}
 }
 
-int					exec_line(char *line)
-{
-	char	**cmds;
-	char	*tmp;
-	int		c;
-	short	ret;
-
-	c = 0;
-	ret = 0;
-	tmp = NULL;
-	if (!line)
-		return (0);
-	if ((cmds = ft_strsplit(line, ";")))
-	{
-		while (cmds[c])
-		{
-			if (*(tmp = ft_strtrim(cmds[c])) != '#')
-				if ((ret = command(cmds[c])) && !cmds[c + 1])
-					ft_putnbr(ret);
-			free(cmds[c]);
-			free(tmp);
-			c++;
-		}
-		free(cmds);
-	}
-	return (1);
-}
-
-void				exiting(void)
-{
-	ft_putendl("YAY! exiting");
-}
-
 int					main(int ac, char **av)
 {
 	int		fd;
@@ -71,7 +38,6 @@ int					main(int ac, char **av)
 	sig_handlers_set();
 	parse_env_conf((*(av + 1) && *(av + 2) && **(av + 1) == '-'
 				&& **((av + 1) + 1) == 'c') ? *(av + 2) : NULL);
-	atexit(&exiting);
 	shell_loop(fd);
 	return (0);
 }
