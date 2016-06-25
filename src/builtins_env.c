@@ -6,11 +6,49 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/23 01:49:14 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/06/23 05:20:36 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/06/25 02:54:30 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static inline char	**fill_nenv(char opts, char ***av)
+{
+	int		c;
+	char	**new_env;
+	char	**tmp;
+
+	c = 0;
+	new_env = NULL;
+	if (opts == 'u' && !**av)
+	{
+		ft_putendl_fd("minishell: env: missing arg", 2);
+		return (NULL);
+	}
+	while (environ[++c])
+		;
+	if (!(new_env = malloc(c * sizeof(char**))))
+		return (NULL);
+	c = 0;
+	if (opts != 'i')
+		while (environ[c])
+		{
+			if (opts != 'u' ||
+					!cin_c2c(*(tmp = ft_strsplit(environ[c], "=")), *av))
+				if (!(new_env[c] = ft_strdup(environ[c])))
+					new_env[c] = NULL;
+			if (tmp)
+			{
+				free(tmp[0]);
+				free(tmp[1]);
+				free(tmp);
+			}
+			c++;
+		}
+
+	new_env[c] = NULL;
+	return (new_env);
+}
 
 static inline int	geto(char ***av)
 {
@@ -26,35 +64,12 @@ static inline int	geto(char ***av)
 	return (opts);
 }
 
-static inline char	**fill_nenv(char opts)
-{
-	int		c;
-	char	**new_env;
-
-	c = 0;
-	new_env = NULL;
-	while (environ[++c])
-		;
-	if (!(new_env = malloc(c * sizeof(char**))))
-		return (NULL);
-	c = 0;
-	while (environ[c])
-	{
-		if (!(opts == 'i'))
-			if (!(new_env[c] = ft_strdup(environ[c])))
-				new_env[c] = NULL;
-		c++;
-	}
-	new_env[c] = NULL;
-	return (new_env);
-}
-
 /*
 ** env launch a process with enventually modified actual env
-** if no process, env is displayed
-** env [-u NAME] [NAME=value] [cmd]
-** -u delete NAME
-** -i clear env
+** if no process, modified env is displayed
+** env [-u NAME...]|[-i] [NAME=value] [cmd]
+** -u delete NAMEs from env
+** -i start from a void env
 */
 
 int					bi_env(char **av)
@@ -63,31 +78,29 @@ int					bi_env(char **av)
 	int		c;
 	char	opts;
 	char	*path;
-	char	*cmd;
 
 	c = 0;
-	cmd = NULL;
 	path = getenv("PATH");
 	opts = geto(&av);
-	new_env = fill_nenv(opts);
+	new_env = fill_nenv(opts, &av);
 	if (!*av)
-		while (new_env[c])
+		while (new_env && new_env[c])
 		{
 			ft_putendl(new_env[c]);
 			c++;
 		}
-	else if (in_builtins(av) == 404 && (!(access(*av, X_OK))
-				|| (path && (cmd = in_path(*av, path)))))
-		ft_putnbr(forkexec(cmd ? cmd : *av, av, (char**)environ));
-	while (c + 1)
+	else
+		command(*av, new_env, 0);
+	if (new_env)
 	{
-		if (new_env[c])
-			free(new_env[c]);
-		c--;
+		while (c + 1)
+		{
+			if (new_env[c])
+				free(new_env[c]);
+			c--;
+		}
+		free(new_env);
 	}
-	if (cmd)
-		free(cmd);
-	free(new_env);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/20 14:50:11 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/06/22 17:50:57 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/06/24 23:50:40 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,10 @@ int					bi_cd(char **av)
 	curpath = NULL;
 	oldpwd = getcwd(oldpwd, PATH_MAX) ?: getenv("PWD");
 	if (!*av && !getenv("HOME"))
+	{
+		ft_putendl_fd("minishell: cd: HOME not set", 2);
 		return (-1);
+	}
 	if (ft_strlen(*av) == 2 && **av == '-')
 		flag = ((*(*av + 1)) == 'P' || (*(*av + 1)) == 'L') ? *(*av + 1) : 0;
 	if (!(curpath = set_curpath(flag ? av + 1 : av)))

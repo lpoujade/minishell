@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/23 11:19:44 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/06/23 04:31:27 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/06/25 02:21:40 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		bi_env(char **av);
 int		bi_suenv(char **av);
 void	sp_prompt(void);
 int		exec_line(char *line);
-int		command(char *line);
+int		command(char *line, char **env, int bi);
 char	*in_path(char *cmd, char *path);
 char	*cin_c2c(char *c1, char **c2);
 void	sighandler(int nb);

@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/23 11:02:51 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/06/23 18:26:24 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/06/25 01:48:46 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ static inline void	sig_handlers_set(void)
 
 	c = 0;
 	while (++c <= 31)
-		if (c != SIGKILL && c != SIGSTOP && c != SIGSEGV && c != SIGBUS)
+		if (c != SIGKILL && c != SIGSTOP && c != SIGSEGV && c != SIGBUS
+				&& c != SIGQUIT && c != SIGTERM)
 			if (signal(c, &sighandler) == SIG_ERR)
 			{
 				ft_putstr_fd("minishell: signal ", 2);

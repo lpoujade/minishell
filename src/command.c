@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/13 12:37:22 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/06/23 05:21:26 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/06/25 02:21:16 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int			in_builtins(char **av)
 	return (ret);
 }
 
-int			command(char *line)
+int			command(char *line, char **env, int bi)
 {
 	char	**av;
 	char	*path;
@@ -84,11 +84,11 @@ int			command(char *line)
 	c = 0;
 	cmd = NULL;
 	path = getenv("PATH");
-	av = ft_strsplit(line, "\t  ");
-	if ((ret = in_builtins(av)) != 404)
+	av = ft_strsplit(line, "\t ");
+	if (bi && (ret = in_builtins(av)) != 404)
 		;
 	else if (!(access(*av, X_OK)) || (path && (cmd = in_path(*av, path))))
-		ret = forkexec(cmd ? cmd : *av, av, (char**)environ);
+		ret = forkexec(cmd ? cmd : *av, av, env);
 	else
 		ft_putendl((cmd = ft_strjoin("minishell: command not found: ", *av)));
 	while (av[c])
