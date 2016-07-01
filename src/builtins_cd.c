@@ -40,9 +40,7 @@ static inline int	canon_form(char **path, char *ocurdir)
 {
 	char	*npath;
 	char	*curdir;
-	short	c, i;
 
-	c = 0; i = 0;
 	npath = NULL;
 	if (!ocurdir)
 		return (-1);

@@ -20,6 +20,7 @@ static inline char	**fill_nenv(char opts, char ***av)
 
 	c = 0;
 	new_env = NULL;
+	tmp = NULL;
 	if (opts == 'u' && !**av)
 	{
 		ft_putendl_fd("minishell: env: missing arg", 2);
@@ -41,7 +42,10 @@ static inline char	**fill_nenv(char opts, char ***av)
 			{
 				free(tmp[0]);
 				free(tmp[1]);
+				tmp[0] = NULL;
+				tmp[1] = NULL;
 				free(tmp);
+				tmp = NULL;
 			}
 			c++;
 		}
@@ -77,12 +81,12 @@ int					bi_env(char **av)
 	char	**new_env;
 	int		c;
 	char	opts;
-	char	*path;
 
 	c = 0;
-	path = getenv("PATH");
 	opts = geto(&av);
 	new_env = fill_nenv(opts, &av);
+	while (*av && ((opts == 'u' && ft_isupper(**av)) || ft_strchr(*av, '=')))
+		av++;
 	if (!*av)
 		while (new_env && new_env[c])
 		{
@@ -103,37 +107,3 @@ int					bi_env(char **av)
 	}
 	return (0);
 }
-
-/*
-**	{
-**		while (av[c] && ft_strchr(av[c], '='))
-**		{
-**			while (new_env[i] &&
-**					(ft_memcmp(new_env[i], av[c], ft_strclchr(av[c], '=')) ||
-**					new_env[i][ft_strclchr(av[c], '=') + 1] == '='))
-**				i++;
-**			if (new_env[i])
-**			{
-**				free(new_env[i]);
-**				new_env[i] = ft_strdup("nop=nop");
-**			}
-**			i = 0;
-**			c++;
-**		}
-**		if (av[c])
-**		{
-**			ft_putendl(av[c]);
-**			forkexec(av[c], (av + c + 1) ?: NULL, new_env);
-**			ft_putendl("exec");
-**		}
-**		else
-**		{
-**			c = 0;
-**			while (new_env[c])
-**			{
-**				ft_putendl(new_env[c]);
-**				c++;
-**			}
-**		}
-**	}
-*/
