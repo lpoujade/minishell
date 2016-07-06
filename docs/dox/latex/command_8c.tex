@@ -1,0 +1,40 @@
+\hypertarget{command_8c}{}\section{src/command.c File Reference}
+\label{command_8c}\index{src/command.\+c@{src/command.\+c}}
+{\ttfamily \#include $<$minishell.\+h$>$}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{command_8c_a0aad098825ba6396b15353c25b890e08}{forkexec} (char $\ast$cmd, char $\ast$$\ast$av, char $\ast$$\ast$env)
+\item 
+int \hyperlink{command_8c_a055b51669c790e59382660910991cd4e}{in\+\_\+builtins} (char $\ast$$\ast$av)
+\item 
+int \hyperlink{command_8c_afcf59ba929ea83905a3ed77f99643a39}{command} (char $\ast$line, char $\ast$$\ast$env, int bi)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{command.\+c@{command.\+c}!command@{command}}
+\index{command@{command}!command.\+c@{command.\+c}}
+\subsubsection[{\texorpdfstring{command(char $\ast$line, char $\ast$$\ast$env, int bi)}{command(char *line, char **env, int bi)}}]{\setlength{\rightskip}{0pt plus 5cm}int command (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{line, }
+\item[{char $\ast$$\ast$}]{env, }
+\item[{int}]{bi}
+\end{DoxyParamCaption}
+)}\hypertarget{command_8c_afcf59ba929ea83905a3ed77f99643a39}{}\label{command_8c_afcf59ba929ea83905a3ed77f99643a39}
+\index{command.\+c@{command.\+c}!forkexec@{forkexec}}
+\index{forkexec@{forkexec}!command.\+c@{command.\+c}}
+\subsubsection[{\texorpdfstring{forkexec(char $\ast$cmd, char $\ast$$\ast$av, char $\ast$$\ast$env)}{forkexec(char *cmd, char **av, char **env)}}]{\setlength{\rightskip}{0pt plus 5cm}int forkexec (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{cmd, }
+\item[{char $\ast$$\ast$}]{av, }
+\item[{char $\ast$$\ast$}]{env}
+\end{DoxyParamCaption}
+)}\hypertarget{command_8c_a0aad098825ba6396b15353c25b890e08}{}\label{command_8c_a0aad098825ba6396b15353c25b890e08}
+\index{command.\+c@{command.\+c}!in\+\_\+builtins@{in\+\_\+builtins}}
+\index{in\+\_\+builtins@{in\+\_\+builtins}!command.\+c@{command.\+c}}
+\subsubsection[{\texorpdfstring{in\+\_\+builtins(char $\ast$$\ast$av)}{in_builtins(char **av)}}]{\setlength{\rightskip}{0pt plus 5cm}int in\+\_\+builtins (
+\begin{DoxyParamCaption}
+\item[{char $\ast$$\ast$}]{av}
+\end{DoxyParamCaption}
+)}\hypertarget{command_8c_a055b51669c790e59382660910991cd4e}{}\label{command_8c_a055b51669c790e59382660910991cd4e}

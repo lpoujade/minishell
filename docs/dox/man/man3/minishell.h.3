@@ -1,0 +1,119 @@
+.TH "includes/minishell.h" 3 "Wed Jul 6 2016" "minishell" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+includes/minishell.h \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <unistd\&.h>\fP
+.br
+\fC#include <stddef\&.h>\fP
+.br
+\fC#include <sys/wait\&.h>\fP
+.br
+\fC#include <signal\&.h>\fP
+.br
+\fC#include <stdlib\&.h>\fP
+.br
+\fC#include <stdio\&.h>\fP
+.br
+\fC#include <errno\&.h>\fP
+.br
+\fC#include <limits\&.h>\fP
+.br
+\fC#include <fcntl\&.h>\fP
+.br
+\fC#include 'libft\&.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBshell_loop\fP (int fd)"
+.br
+.ti -1c
+.RI "int \fBparse_env_conf\fP (char *conffile)"
+.br
+.ti -1c
+.RI "int \fBbi_cd\fP (char **av)"
+.br
+.ti -1c
+.RI "int \fBbi_env\fP (char **av)"
+.br
+.ti -1c
+.RI "int \fBbi_suenv\fP (char **av)"
+.br
+.ti -1c
+.RI "void \fBsp_prompt\fP (void)"
+.br
+.ti -1c
+.RI "int \fBexec_line\fP (char *line)"
+.br
+.ti -1c
+.RI "int \fBcommand\fP (char *line, char **env, int bi)"
+.br
+.ti -1c
+.RI "char * \fBin_path\fP (char *cmd, char *path)"
+.br
+.ti -1c
+.RI "char * \fBcin_c2c\fP (char *c1, char **c2)"
+.br
+.ti -1c
+.RI "void \fBsighandler\fP (int nb)"
+.br
+.ti -1c
+.RI "int \fBforkexec\fP (char *cmd, char **av, char **env)"
+.br
+.ti -1c
+.RI "char * \fBtr_eq\fP (char *s)"
+.br
+.ti -1c
+.RI "int \fBin_builtins\fP (char **av)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "char ** \fBenviron\fP"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "int bi_cd (char ** av)"
+
+.SS "int bi_env (char ** av)"
+
+.SS "int bi_suenv (char ** av)"
+
+.SS "char* cin_c2c (char * c1, char ** c2)"
+
+.SS "int command (char * line, char ** env, int bi)"
+
+.SS "int exec_line (char * line)"
+
+.SS "int forkexec (char * cmd, char ** av, char ** env)"
+
+.SS "int in_builtins (char ** av)"
+
+.SS "char* in_path (char * cmd, char * path)"
+
+.SS "int parse_env_conf (char * conffile)"
+
+.SS "void shell_loop (int fd)"
+
+.SS "void sighandler (int nb)"
+
+.SS "void sp_prompt (void)"
+
+.SS "char* tr_eq (char * s)"
+
+.SH "Variable Documentation"
+.PP 
+.SS "char** environ"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for minishell from the source code\&.

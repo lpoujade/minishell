@@ -14,8 +14,8 @@ NAME=minishell
 SRCDIR=./src
 OBJDIR=./.obj
 
-CC=clang
-CFLAGS=-Wall -Werror -Wextra -g
+CC=gcc
+CFLAGS=-Wall -Werror -Wextra -g -Wno-empty-body
 CPPFLAGS=-Iincludes/ -Ilibft/includes
 
 LDFLAGS=-Llibft/
@@ -50,6 +50,9 @@ $(LIB):
 
 clean:
 	-@rm $(OBJS) && echo "deleting" $(OBJS)
+
+doc:
+	doxygen docs/dox/discover
 
 covclean:
 	-@rm $(OBJS:.o=.gcno) && echo "deleting" $(OBJS:.o=.gcno)

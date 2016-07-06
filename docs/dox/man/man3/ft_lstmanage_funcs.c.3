@@ -1,0 +1,35 @@
+.TH "libft/src/ft_lstmanage_funcs.c" 3 "Wed Jul 6 2016" "minishell" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+libft/src/ft_lstmanage_funcs.c \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'libft\&.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBft_lstiter\fP (\fBt_list\fP *lst, void(*f)(\fBt_list\fP *elem))"
+.br
+.ti -1c
+.RI "void \fBft_lstdel\fP (\fBt_list\fP **alst, void(*del)(void *))"
+.br
+.ti -1c
+.RI "void \fBft_lstdelone\fP (\fBt_list\fP **alst, void(*del)(void *))"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "void ft_lstdel (\fBt_list\fP ** alst, void(*)(void *) del)"
+
+.SS "void ft_lstdelone (\fBt_list\fP ** alst, void(*)(void *) del)"
+
+.SS "void ft_lstiter (\fBt_list\fP * lst, void(*)(\fBt_list\fP *elem) f)"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for minishell from the source code\&.
