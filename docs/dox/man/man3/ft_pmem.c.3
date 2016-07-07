@@ -1,4 +1,4 @@
-.TH "libft/src/ft_pmem.c" 3 "Wed Jul 6 2016" "minishell" \" -*- nroff -*-
+.TH "libft/src/ft_pmem.c" 3 "Thu Jul 7 2016" "minishell" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -12,6 +12,9 @@ libft/src/ft_pmem.c \-
 .SS "Functions"
 
 .in +1c
+.ti -1c
+.RI "static int \fBisascii\fP (char c)"
+.br
 .ti -1c
 .RI "void \fBft_puthex\fP (unsigned char num)"
 .br
@@ -27,6 +30,8 @@ libft/src/ft_pmem.c \-
 .SS "void ft_pmem (const void * addr, size_t t)"
 
 .SS "void ft_puthex (unsigned char num)"
+
+.SS "static int isascii (char c)\fC [inline]\fP, \fC [static]\fP"
 
 .SS "char* print_line_ascii (char * addr, int b)"
 

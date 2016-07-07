@@ -12,6 +12,17 @@
 
 #include "minishell.h"
 
+/**
+** Register certains signals to a sigHandler function
+**
+** Set one function callback to all signals except :
+** SIGKILL, SIGSTOP, SIGSEGV, SIGBUS, SIGQUIT & SIGTERM
+** TODO: documents wichs are not handled for debug and which are not by
+** obligations
+**
+** @param Nothing.
+** @return Nothing.
+*/
 static inline void	sig_handlers_set(void)
 {
 	int	c;
@@ -28,6 +39,17 @@ static inline void	sig_handlers_set(void)
 			}
 }
 
+/**
+** Short desc
+**
+** Longer desc
+** ...
+**
+** @params ac
+** @params av
+**
+** @return nothing
+*/
 int					main(int ac, char **av)
 {
 	int		fd;

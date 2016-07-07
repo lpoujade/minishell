@@ -6,6 +6,8 @@
 \item 
 char $\ast$ \hyperlink{access_8c_aeec2d9c3b27acad8254e62b24a75d29d}{cin\+\_\+c2c} (char $\ast$c1, char $\ast$$\ast$c2)
 \item 
+static char $\ast$ \hyperlink{access_8c_a43a5ee47bbe7e5d3293989765f3b4db4}{cjoin} (char $\ast$path, char $\ast$cmd)
+\item 
 char $\ast$ \hyperlink{access_8c_a67b4dfe96f5e58b98d6881c233cfd575}{in\+\_\+path} (char $\ast$cmd, char $\ast$path)
 \end{DoxyCompactItemize}
 
@@ -19,6 +21,32 @@ char $\ast$ \hyperlink{access_8c_a67b4dfe96f5e58b98d6881c233cfd575}{in\+\_\+path
 \item[{char $\ast$$\ast$}]{c2}
 \end{DoxyParamCaption}
 )}\hypertarget{access_8c_aeec2d9c3b27acad8254e62b24a75d29d}{}\label{access_8c_aeec2d9c3b27acad8254e62b24a75d29d}
+Search for str c1 in strs table c2
+
+Iter on c2 strs to find c1. Stop on first occurence of c1 in c2, or when N\+U\+L\+L-\/terminating pointer has been reached in c2.
+
+c1\+: Searched string  c2\+: Table of strings which may contains c1
+
+\begin{DoxyReturn}{Returns}
+Pointer to c1 in c2, or N\+U\+LL (reached end of c2 before finding c1) 
+\end{DoxyReturn}
+\index{access.\+c@{access.\+c}!cjoin@{cjoin}}
+\index{cjoin@{cjoin}!access.\+c@{access.\+c}}
+\subsubsection[{\texorpdfstring{cjoin(char $\ast$path, char $\ast$cmd)}{cjoin(char *path, char *cmd)}}]{\setlength{\rightskip}{0pt plus 5cm}static char$\ast$ cjoin (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{path, }
+\item[{char $\ast$}]{cmd}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{access_8c_a43a5ee47bbe7e5d3293989765f3b4db4}{}\label{access_8c_a43a5ee47bbe7e5d3293989765f3b4db4}
+Concat next chars groups in path before \textquotesingle{}\+:\textquotesingle{} char with cmd
+
+Can be call with same value until no more folder to try in $<$path$>$ or $<$cmd$>$ was found in one on the folders
+
+path\+: Path variable (\char`\"{}/usr/bin\+:/personnal/binaries\+:/no\char`\"{})  cmd\+: command name to find in the path (actually, name of binary file contained in one of the path\textquotesingle{}s folders
+
+\begin{DoxyReturn}{Returns}
+Pointer to str representing $<$path\+\_\+member$>$/$<$cmd$>$, or N\+U\+LL 
+\end{DoxyReturn}
 \index{access.\+c@{access.\+c}!in\+\_\+path@{in\+\_\+path}}
 \index{in\+\_\+path@{in\+\_\+path}!access.\+c@{access.\+c}}
 \subsubsection[{\texorpdfstring{in\+\_\+path(char $\ast$cmd, char $\ast$path)}{in_path(char *cmd, char *path)}}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ in\+\_\+path (
@@ -27,3 +55,12 @@ char $\ast$ \hyperlink{access_8c_a67b4dfe96f5e58b98d6881c233cfd575}{in\+\_\+path
 \item[{char $\ast$}]{path}
 \end{DoxyParamCaption}
 )}\hypertarget{access_8c_a67b4dfe96f5e58b98d6881c233cfd575}{}\label{access_8c_a67b4dfe96f5e58b98d6881c233cfd575}
+Try to find cmd in path
+
+Longer desc ...
+
+cmd\+: command (binary) to search trought path  path\+: \textquotesingle{}\+:\textquotesingle{}-\/separated list of folders name
+
+\begin{DoxyReturn}{Returns}
+Real path to cmd binary (ready to be passed to execve(), or N\+U\+LL 
+\end{DoxyReturn}

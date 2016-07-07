@@ -1,4 +1,4 @@
-.TH "src/access.c" 3 "Wed Jul 6 2016" "minishell" \" -*- nroff -*-
+.TH "src/access.c" 3 "Thu Jul 7 2016" "minishell" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -16,14 +16,52 @@ src/access.c \-
 .RI "char * \fBcin_c2c\fP (char *c1, char **c2)"
 .br
 .ti -1c
+.RI "static char * \fBcjoin\fP (char *path, char *cmd)"
+.br
+.ti -1c
 .RI "char * \fBin_path\fP (char *cmd, char *path)"
 .br
 .in -1c
 .SH "Function Documentation"
 .PP 
 .SS "char* cin_c2c (char * c1, char ** c2)"
+Search for str c1 in strs table c2
+.PP
+Iter on c2 strs to find c1\&. Stop on first occurence of c1 in c2, or when NULL-terminating pointer has been reached in c2\&.
+.PP
+c1: Searched string  c2: Table of strings which may contains c1
+.PP
+\fBReturns:\fP
+.RS 4
+Pointer to c1 in c2, or NULL (reached end of c2 before finding c1) 
+.RE
+.PP
+
+.SS "static char* cjoin (char * path, char * cmd)\fC [inline]\fP, \fC [static]\fP"
+Concat next chars groups in path before ':' char with cmd
+.PP
+Can be call with same value until no more folder to try in <path> or <cmd> was found in one on the folders
+.PP
+path: Path variable ('/usr/bin:/personnal/binaries:/no')  cmd: command name to find in the path (actually, name of binary file contained in one of the path's folders
+.PP
+\fBReturns:\fP
+.RS 4
+Pointer to str representing <path_member>/<cmd>, or NULL 
+.RE
+.PP
 
 .SS "char* in_path (char * cmd, char * path)"
+Try to find cmd in path
+.PP
+Longer desc \&.\&.\&.
+.PP
+cmd: command (binary) to search trought path  path: ':'-separated list of folders name
+.PP
+\fBReturns:\fP
+.RS 4
+Real path to cmd binary (ready to be passed to execve(), or NULL 
+.RE
+.PP
 
 .SH "Author"
 .PP 

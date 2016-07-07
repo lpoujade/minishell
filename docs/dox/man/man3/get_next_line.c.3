@@ -1,4 +1,4 @@
-.TH "libft/src/get_next_line.c" 3 "Wed Jul 6 2016" "minishell" \" -*- nroff -*-
+.TH "libft/src/get_next_line.c" 3 "Thu Jul 7 2016" "minishell" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -13,11 +13,26 @@ libft/src/get_next_line.c \-
 
 .in +1c
 .ti -1c
+.RI "static int \fBbuff_delfline\fP (char **buff)"
+.br
+.ti -1c
+.RI "static int \fBft_str_read_add\fP (int fd, char **buff)"
+.br
+.ti -1c
+.RI "static \fBt_file\fP * \fBf_add\fP (int fd, \fBt_file\fP *link)"
+.br
+.ti -1c
 .RI "int \fBget_next_line\fP (int const fd, char **line)"
 .br
 .in -1c
 .SH "Function Documentation"
 .PP 
+.SS "static int buff_delfline (char ** buff)\fC [static]\fP"
+
+.SS "static \fBt_file\fP* f_add (int fd, \fBt_file\fP * link)\fC [static]\fP"
+
+.SS "static int ft_str_read_add (int fd, char ** buff)\fC [static]\fP"
+
 .SS "int get_next_line (int const fd, char ** line)"
 
 .SH "Author"

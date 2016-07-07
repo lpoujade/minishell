@@ -231,6 +231,10 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Search for str c1 in strs table c2</p>
+<p>Iter on c2 strs to find c1. Stop on first occurence of c1 in c2, or when NULL-terminating pointer has been reached in c2.</p>
+<p>c1: Searched string  c2: Table of strings which may contains c1</p>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to c1 in c2, or NULL (reached end of c2 before finding c1) </dd></dl>
 
 </div>
 </div>
@@ -279,6 +283,10 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Slit string into commands and launch them</p>
+<p>First if ';' in line, split into simpler commands lines, then exec it via <a class="el" href="minishell_8h.html#afcf59ba929ea83905a3ed77f99643a39">command()</a></p>
+<p>line: the string to be evaluated</p>
+<dl class="section return"><dt>Returns</dt><dd>0 if line was NULL (CTRL-D ('EOF') was hit, shell quit), 1 else </dd></dl>
 
 </div>
 </div>
@@ -353,6 +361,10 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Try to find cmd in path</p>
+<p>Longer desc ...</p>
+<p>cmd: command (binary) to search trought path  path: ':'-separated list of folders name</p>
+<dl class="section return"><dt>Returns</dt><dd>Real path to cmd binary (ready to be passed to execve(), or NULL </dd></dl>
 
 </div>
 </div>
@@ -385,6 +397,14 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Shell main loop</p>
+<p>Loop reading :</p><ul>
+<li>first the <em>fd</em> var, if not 0</li>
+<li>second the <em>0</em> fd (standard input)</li>
+</ul>
+<p>Try to exec each string (readed via <a class="el" href="libft_8h.html#a04f28eda445197a64397922f2594aebd">get_next_line()</a>) with <a class="el" href="shell_8c.html#af722f61b53e9583ef01f5fd459aa33d8">exec_line()</a></p>
+<p>fd: file descriptor, to a configuration/script file; or to the standard input (and THEN to the stdin)</p>
+<dl class="section return"><dt>Returns</dt><dd>Dont return but can exit() </dd></dl>
 
 </div>
 </div>

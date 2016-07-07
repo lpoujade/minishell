@@ -1,4 +1,4 @@
-.TH "src/shell.c" 3 "Wed Jul 6 2016" "minishell" \" -*- nroff -*-
+.TH "src/shell.c" 3 "Thu Jul 7 2016" "minishell" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -22,8 +22,37 @@ src/shell.c \-
 .SH "Function Documentation"
 .PP 
 .SS "int exec_line (char * line)"
+Slit string into commands and launch them
+.PP
+First if ';' in line, split into simpler commands lines, then exec it via \fBcommand()\fP
+.PP
+line: the string to be evaluated
+.PP
+\fBReturns:\fP
+.RS 4
+0 if line was NULL (CTRL-D ('EOF') was hit, shell quit), 1 else 
+.RE
+.PP
 
 .SS "void shell_loop (int fd)"
+Shell main loop
+.PP
+Loop reading :
+.IP "\(bu" 2
+first the \fIfd\fP var, if not 0
+.IP "\(bu" 2
+second the \fI0\fP fd (standard input)
+.PP
+.PP
+Try to exec each string (readed via \fBget_next_line()\fP) with \fBexec_line()\fP
+.PP
+fd: file descriptor, to a configuration/script file; or to the standard input (and THEN to the stdin)
+.PP
+\fBReturns:\fP
+.RS 4
+Dont return but can exit() 
+.RE
+.PP
 
 .SH "Author"
 .PP 

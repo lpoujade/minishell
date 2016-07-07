@@ -4,6 +4,8 @@
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
+static void \hyperlink{minishell_8c_aeb95bf2cf4469ff39eb45eaefa44dfad}{sig\+\_\+handlers\+\_\+set} (void)
+\item 
 int \hyperlink{minishell_8c_a0c99d968a34e803d378692bde2e3f18f}{main} (int ac, char $\ast$$\ast$av)
 \end{DoxyCompactItemize}
 
@@ -17,3 +19,31 @@ int \hyperlink{minishell_8c_a0c99d968a34e803d378692bde2e3f18f}{main} (int ac, ch
 \item[{char $\ast$$\ast$}]{av}
 \end{DoxyParamCaption}
 )}\hypertarget{minishell_8c_a0c99d968a34e803d378692bde2e3f18f}{}\label{minishell_8c_a0c99d968a34e803d378692bde2e3f18f}
+Short desc
+
+Longer desc ...
+
+ac  av
+
+\begin{DoxyReturn}{Returns}
+nothing 
+\end{DoxyReturn}
+\index{minishell.\+c@{minishell.\+c}!sig\+\_\+handlers\+\_\+set@{sig\+\_\+handlers\+\_\+set}}
+\index{sig\+\_\+handlers\+\_\+set@{sig\+\_\+handlers\+\_\+set}!minishell.\+c@{minishell.\+c}}
+\subsubsection[{\texorpdfstring{sig\+\_\+handlers\+\_\+set(void)}{sig_handlers_set(void)}}]{\setlength{\rightskip}{0pt plus 5cm}static void sig\+\_\+handlers\+\_\+set (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{minishell_8c_aeb95bf2cf4469ff39eb45eaefa44dfad}{}\label{minishell_8c_aeb95bf2cf4469ff39eb45eaefa44dfad}
+Register certains signals to a sig\+Handler function
+
+Set one function callback to all signals except \+: S\+I\+G\+K\+I\+LL, S\+I\+G\+S\+T\+OP, S\+I\+G\+S\+E\+GV, S\+I\+G\+B\+US, S\+I\+G\+Q\+U\+IT \& S\+I\+G\+T\+E\+RM T\+O\+DO\+: documents wichs are not handled for debug and which are not by obligations
+
+
+\begin{DoxyParams}{Parameters}
+{\em Nothing.} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Nothing. 
+\end{DoxyReturn}

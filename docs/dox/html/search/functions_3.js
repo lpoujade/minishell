@@ -1,5 +1,7 @@
 var searchData=
 [
+  ['f_5fadd',['f_add',['../get__next__line_8c.html#af22fa2a8dbfcc4e3d614eef37e8cebc5',1,'get_next_line.c']]],
+  ['fill_5fnenv',['fill_nenv',['../builtins__env_8c.html#a67a19c5ddc1cae0a64065c5602550549',1,'builtins_env.c']]],
   ['forkexec',['forkexec',['../minishell_8h.html#a0aad098825ba6396b15353c25b890e08',1,'forkexec(char *cmd, char **av, char **env):&#160;command.c'],['../command_8c.html#a0aad098825ba6396b15353c25b890e08',1,'forkexec(char *cmd, char **av, char **env):&#160;command.c']]],
   ['ft_5fabs',['ft_abs',['../libft_8h.html#ad73eeda4fd077bfeaac1572e2db913a5',1,'ft_abs(signed int n):&#160;ft_mat.c'],['../ft__mat_8c.html#ad73eeda4fd077bfeaac1572e2db913a5',1,'ft_abs(signed int n):&#160;ft_mat.c']]],
   ['ft_5fatoi',['ft_atoi',['../libft_8h.html#aee12925b625a684782e0dae86629bb6d',1,'ft_atoi(char const *s):&#160;ft_atoi.c'],['../ft__atoi_8c.html#aee12925b625a684782e0dae86629bb6d',1,'ft_atoi(char const *s):&#160;ft_atoi.c']]],
@@ -11,6 +13,7 @@ var searchData=
   ['ft_5fisascii',['ft_isascii',['../libft_8h.html#abf60ddbec6479540e81f3648cf71f1f4',1,'ft_isascii(int c):&#160;ft_isascii.c'],['../ft__isascii_8c.html#abf60ddbec6479540e81f3648cf71f1f4',1,'ft_isascii(int c):&#160;ft_isascii.c']]],
   ['ft_5fisdigit',['ft_isdigit',['../libft_8h.html#a2cf15b8a1a277d1e2ce3654101a2003d',1,'ft_isdigit(int c):&#160;ft_isdigit.c'],['../ft__isdigit_8c.html#a2cf15b8a1a277d1e2ce3654101a2003d',1,'ft_isdigit(int c):&#160;ft_isdigit.c']]],
   ['ft_5fisprint',['ft_isprint',['../libft_8h.html#abcdba69692f21146aeea5b3d59b7d0ca',1,'ft_isprint(int c):&#160;ft_isprint.c'],['../ft__isprint_8c.html#abcdba69692f21146aeea5b3d59b7d0ca',1,'ft_isprint(int c):&#160;ft_isprint.c']]],
+  ['ft_5fisspace',['ft_isspace',['../ft__atoi_8c.html#a2213ac35f8cdbb99c84443fc4354ed17',1,'ft_isspace(int c):&#160;ft_atoi.c'],['../ft__atoi__base_8c.html#a3cf519136dd257fd16fa221ab15fa9b6',1,'ft_isspace(char c):&#160;ft_atoi_base.c']]],
   ['ft_5fisupper',['ft_isupper',['../libft_8h.html#a1ad9c4559cffbb211ec56fe8964f30f9',1,'ft_isupper(int c):&#160;ft_isupper.c'],['../ft__isupper_8c.html#a1ad9c4559cffbb211ec56fe8964f30f9',1,'ft_isupper(int c):&#160;ft_isupper.c']]],
   ['ft_5fiswap',['ft_iswap',['../libft_8h.html#a436d1b0e00c363a5e92494c419716aae',1,'ft_iswap(int *a, int *b):&#160;ft_swap.c'],['../ft__swap_8c.html#a436d1b0e00c363a5e92494c419716aae',1,'ft_iswap(int *a, int *b):&#160;ft_swap.c']]],
   ['ft_5fitoa',['ft_itoa',['../libft_8h.html#ae5e08fbfd5d8129c2bf3a6c42fc7734c',1,'ft_itoa(int n):&#160;ft_itoa.c'],['../ft__itoa_8c.html#ae5e08fbfd5d8129c2bf3a6c42fc7734c',1,'ft_itoa(int n):&#160;ft_itoa.c']]],
@@ -41,6 +44,7 @@ var searchData=
   ['ft_5fputstr',['ft_putstr',['../libft_8h.html#af059881fce329f6d9b5ff7a28ef2fd25',1,'ft_putstr(char const *s):&#160;ft_putstr.c'],['../ft__putstr_8c.html#af059881fce329f6d9b5ff7a28ef2fd25',1,'ft_putstr(char const *s):&#160;ft_putstr.c']]],
   ['ft_5fputstr_5ffd',['ft_putstr_fd',['../libft_8h.html#a410faf134ffc2ca8180d5351a2b6c309',1,'ft_putstr_fd(char const *s, int fd):&#160;ft_putstr_fd.c'],['../ft__putstr__fd_8c.html#a410faf134ffc2ca8180d5351a2b6c309',1,'ft_putstr_fd(char const *s, int fd):&#160;ft_putstr_fd.c']]],
   ['ft_5frealloc',['ft_realloc',['../libft_8h.html#ae6cfbe41ee57d0195e289e9a2e173a42',1,'ft_realloc(void **src, size_t src_size, size_t final_size):&#160;ft_realloc.c'],['../ft__realloc_8c.html#ae6cfbe41ee57d0195e289e9a2e173a42',1,'ft_realloc(void **src, size_t src_size, size_t final_size):&#160;ft_realloc.c']]],
+  ['ft_5fstr_5fread_5fadd',['ft_str_read_add',['../get__next__line_8c.html#abf0a60e32af46c730beae38400e615c7',1,'get_next_line.c']]],
   ['ft_5fstrcat',['ft_strcat',['../libft_8h.html#a79a0df5560baf2d0c04a3d71eb9a02a4',1,'ft_strcat(char *s1, const char *s2):&#160;ft_strcat.c'],['../ft__strcat_8c.html#afe352d247a2a91eb5cd839b2c00da417',1,'ft_strcat(char *s1, char const *s2):&#160;ft_strcat.c']]],
   ['ft_5fstrcchr',['ft_strcchr',['../libft_8h.html#a613aba065f88cbe55f8013a09263474b',1,'ft_strcchr(char const *s, char c):&#160;ft_strcchr.c'],['../ft__strcchr_8c.html#a613aba065f88cbe55f8013a09263474b',1,'ft_strcchr(char const *s, char c):&#160;ft_strcchr.c']]],
   ['ft_5fstrchr',['ft_strchr',['../libft_8h.html#a78e3c01796a62e9984e906894d146d50',1,'ft_strchr(char const *s, int c):&#160;ft_strchr.c'],['../ft__strchr_8c.html#a78e3c01796a62e9984e906894d146d50',1,'ft_strchr(char const *s, int c):&#160;ft_strchr.c']]],

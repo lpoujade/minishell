@@ -78,6 +78,15 @@ char $\ast$$\ast$ \hyperlink{minishell_8h_aa006daaf11f1e2e45a6ababaf463212b}{env
 \item[{char $\ast$$\ast$}]{c2}
 \end{DoxyParamCaption}
 )}\hypertarget{minishell_8h_aeec2d9c3b27acad8254e62b24a75d29d}{}\label{minishell_8h_aeec2d9c3b27acad8254e62b24a75d29d}
+Search for str c1 in strs table c2
+
+Iter on c2 strs to find c1. Stop on first occurence of c1 in c2, or when N\+U\+L\+L-\/terminating pointer has been reached in c2.
+
+c1\+: Searched string  c2\+: Table of strings which may contains c1
+
+\begin{DoxyReturn}{Returns}
+Pointer to c1 in c2, or N\+U\+LL (reached end of c2 before finding c1) 
+\end{DoxyReturn}
 \index{minishell.\+h@{minishell.\+h}!command@{command}}
 \index{command@{command}!minishell.\+h@{minishell.\+h}}
 \subsubsection[{\texorpdfstring{command(char $\ast$line, char $\ast$$\ast$env, int bi)}{command(char *line, char **env, int bi)}}]{\setlength{\rightskip}{0pt plus 5cm}int command (
@@ -94,6 +103,15 @@ char $\ast$$\ast$ \hyperlink{minishell_8h_aa006daaf11f1e2e45a6ababaf463212b}{env
 \item[{char $\ast$}]{line}
 \end{DoxyParamCaption}
 )}\hypertarget{minishell_8h_af722f61b53e9583ef01f5fd459aa33d8}{}\label{minishell_8h_af722f61b53e9583ef01f5fd459aa33d8}
+Slit string into commands and launch them
+
+First if \textquotesingle{};\textquotesingle{} in line, split into simpler commands lines, then exec it via \hyperlink{minishell_8h_afcf59ba929ea83905a3ed77f99643a39}{command()}
+
+line\+: the string to be evaluated
+
+\begin{DoxyReturn}{Returns}
+0 if line was N\+U\+LL (C\+T\+R\+L-\/D (\textquotesingle{}E\+OF\textquotesingle{}) was hit, shell quit), 1 else 
+\end{DoxyReturn}
 \index{minishell.\+h@{minishell.\+h}!forkexec@{forkexec}}
 \index{forkexec@{forkexec}!minishell.\+h@{minishell.\+h}}
 \subsubsection[{\texorpdfstring{forkexec(char $\ast$cmd, char $\ast$$\ast$av, char $\ast$$\ast$env)}{forkexec(char *cmd, char **av, char **env)}}]{\setlength{\rightskip}{0pt plus 5cm}int forkexec (
@@ -118,6 +136,15 @@ char $\ast$$\ast$ \hyperlink{minishell_8h_aa006daaf11f1e2e45a6ababaf463212b}{env
 \item[{char $\ast$}]{path}
 \end{DoxyParamCaption}
 )}\hypertarget{minishell_8h_a67b4dfe96f5e58b98d6881c233cfd575}{}\label{minishell_8h_a67b4dfe96f5e58b98d6881c233cfd575}
+Try to find cmd in path
+
+Longer desc ...
+
+cmd\+: command (binary) to search trought path  path\+: \textquotesingle{}\+:\textquotesingle{}-\/separated list of folders name
+
+\begin{DoxyReturn}{Returns}
+Real path to cmd binary (ready to be passed to execve(), or N\+U\+LL 
+\end{DoxyReturn}
 \index{minishell.\+h@{minishell.\+h}!parse\+\_\+env\+\_\+conf@{parse\+\_\+env\+\_\+conf}}
 \index{parse\+\_\+env\+\_\+conf@{parse\+\_\+env\+\_\+conf}!minishell.\+h@{minishell.\+h}}
 \subsubsection[{\texorpdfstring{parse\+\_\+env\+\_\+conf(char $\ast$conffile)}{parse_env_conf(char *conffile)}}]{\setlength{\rightskip}{0pt plus 5cm}int parse\+\_\+env\+\_\+conf (
@@ -132,6 +159,21 @@ char $\ast$$\ast$ \hyperlink{minishell_8h_aa006daaf11f1e2e45a6ababaf463212b}{env
 \item[{int}]{fd}
 \end{DoxyParamCaption}
 )}\hypertarget{minishell_8h_ae5ade027076e64f8cd15dab0bcc5deef}{}\label{minishell_8h_ae5ade027076e64f8cd15dab0bcc5deef}
+Shell main loop
+
+Loop reading \+:
+\begin{DoxyItemize}
+\item first the {\itshape fd} var, if not 0
+\item second the {\itshape 0} fd (standard input)
+\end{DoxyItemize}
+
+Try to exec each string (readed via \hyperlink{libft_8h_a04f28eda445197a64397922f2594aebd}{get\+\_\+next\+\_\+line()}) with \hyperlink{shell_8c_af722f61b53e9583ef01f5fd459aa33d8}{exec\+\_\+line()}
+
+fd\+: file descriptor, to a configuration/script file; or to the standard input (and T\+H\+EN to the stdin)
+
+\begin{DoxyReturn}{Returns}
+Dont return but can exit() 
+\end{DoxyReturn}
 \index{minishell.\+h@{minishell.\+h}!sighandler@{sighandler}}
 \index{sighandler@{sighandler}!minishell.\+h@{minishell.\+h}}
 \subsubsection[{\texorpdfstring{sighandler(int nb)}{sighandler(int nb)}}]{\setlength{\rightskip}{0pt plus 5cm}void sighandler (

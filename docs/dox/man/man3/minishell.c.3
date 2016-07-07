@@ -1,4 +1,4 @@
-.TH "src/minishell.c" 3 "Wed Jul 6 2016" "minishell" \" -*- nroff -*-
+.TH "src/minishell.c" 3 "Thu Jul 7 2016" "minishell" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -13,12 +13,42 @@ src/minishell.c \-
 
 .in +1c
 .ti -1c
+.RI "static void \fBsig_handlers_set\fP (void)"
+.br
+.ti -1c
 .RI "int \fBmain\fP (int ac, char **av)"
 .br
 .in -1c
 .SH "Function Documentation"
 .PP 
 .SS "int main (int ac, char ** av)"
+Short desc
+.PP
+Longer desc \&.\&.\&.
+.PP
+ac  av
+.PP
+\fBReturns:\fP
+.RS 4
+nothing 
+.RE
+.PP
+
+.SS "static void sig_handlers_set (void)\fC [inline]\fP, \fC [static]\fP"
+Register certains signals to a sigHandler function
+.PP
+Set one function callback to all signals except : SIGKILL, SIGSTOP, SIGSEGV, SIGBUS, SIGQUIT & SIGTERM TODO: documents wichs are not handled for debug and which are not by obligations
+.PP
+\fBParameters:\fP
+.RS 4
+\fINothing\&.\fP 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Nothing\&. 
+.RE
+.PP
 
 .SH "Author"
 .PP 

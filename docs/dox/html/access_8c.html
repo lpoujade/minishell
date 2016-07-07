@@ -115,6 +115,8 @@ $(document).ready(function(){initNavTree('access_8c.html','');});
 Functions</h2></td></tr>
 <tr class="memitem:aeec2d9c3b27acad8254e62b24a75d29d"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="access_8c.html#aeec2d9c3b27acad8254e62b24a75d29d">cin_c2c</a> (char *c1, char **c2)</td></tr>
 <tr class="separator:aeec2d9c3b27acad8254e62b24a75d29d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43a5ee47bbe7e5d3293989765f3b4db4"><td class="memItemLeft" align="right" valign="top">static char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="access_8c.html#a43a5ee47bbe7e5d3293989765f3b4db4">cjoin</a> (char *path, char *cmd)</td></tr>
+<tr class="separator:a43a5ee47bbe7e5d3293989765f3b4db4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a67b4dfe96f5e58b98d6881c233cfd575"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="access_8c.html#a67b4dfe96f5e58b98d6881c233cfd575">in_path</a> (char *cmd, char *path)</td></tr>
 <tr class="separator:a67b4dfe96f5e58b98d6881c233cfd575"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -142,6 +144,48 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Search for str c1 in strs table c2</p>
+<p>Iter on c2 strs to find c1. Stop on first occurence of c1 in c2, or when NULL-terminating pointer has been reached in c2.</p>
+<p>c1: Searched string  c2: Table of strings which may contains c1</p>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to c1 in c2, or NULL (reached end of c2 before finding c1) </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a43a5ee47bbe7e5d3293989765f3b4db4"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static char* cjoin </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>cmd</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Concat next chars groups in path before ':' char with cmd</p>
+<p>Can be call with same value until no more folder to try in &lt;path&gt; or &lt;cmd&gt; was found in one on the folders</p>
+<p>path: Path variable ("/usr/bin:/personnal/binaries:/no")  cmd: command name to find in the path (actually, name of binary file contained in one of the path's folders</p>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to str representing &lt;path_member&gt;/&lt;cmd&gt;, or NULL </dd></dl>
 
 </div>
 </div>
@@ -168,6 +212,10 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Try to find cmd in path</p>
+<p>Longer desc ...</p>
+<p>cmd: command (binary) to search trought path  path: ':'-separated list of folders name</p>
+<dl class="section return"><dt>Returns</dt><dd>Real path to cmd binary (ready to be passed to execve(), or NULL </dd></dl>
 
 </div>
 </div>

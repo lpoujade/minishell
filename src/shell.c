@@ -12,6 +12,20 @@
 
 #include "minishell.h"
 
+/**
+** Shell main loop
+**
+** Loop reading :
+** - first the *fd* var, if not 0
+** - second the *0* fd (standard input)
+**
+** Try to exec each string (readed via get_next_line()) with exec_line()
+**
+** @params fd: file descriptor, to a configuration/script file; or to the
+**				standard input (and THEN to the stdin)
+**
+** @return Dont return but can exit()
+*/
 void	shell_loop(int fd)
 {
 	char	*line;
@@ -36,6 +50,16 @@ void	shell_loop(int fd)
 	}
 }
 
+/**
+** Slit string into commands and launch them
+**
+** First if ';' in line, split into simpler commands lines, then exec it
+** via command()
+**
+** @params line: the string to be evaluated
+**
+** @return 0 if line was NULL (CTRL-D ('EOF') was hit, shell quit), 1 else
+*/
 int		exec_line(char *line)
 {
 	char	**cmds;

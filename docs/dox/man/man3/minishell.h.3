@@ -1,4 +1,4 @@
-.TH "includes/minishell.h" 3 "Wed Jul 6 2016" "minishell" \" -*- nroff -*-
+.TH "includes/minishell.h" 3 "Thu Jul 7 2016" "minishell" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -89,20 +89,71 @@ includes/minishell.h \-
 .SS "int bi_suenv (char ** av)"
 
 .SS "char* cin_c2c (char * c1, char ** c2)"
+Search for str c1 in strs table c2
+.PP
+Iter on c2 strs to find c1\&. Stop on first occurence of c1 in c2, or when NULL-terminating pointer has been reached in c2\&.
+.PP
+c1: Searched string  c2: Table of strings which may contains c1
+.PP
+\fBReturns:\fP
+.RS 4
+Pointer to c1 in c2, or NULL (reached end of c2 before finding c1) 
+.RE
+.PP
 
 .SS "int command (char * line, char ** env, int bi)"
 
 .SS "int exec_line (char * line)"
+Slit string into commands and launch them
+.PP
+First if ';' in line, split into simpler commands lines, then exec it via \fBcommand()\fP
+.PP
+line: the string to be evaluated
+.PP
+\fBReturns:\fP
+.RS 4
+0 if line was NULL (CTRL-D ('EOF') was hit, shell quit), 1 else 
+.RE
+.PP
 
 .SS "int forkexec (char * cmd, char ** av, char ** env)"
 
 .SS "int in_builtins (char ** av)"
 
 .SS "char* in_path (char * cmd, char * path)"
+Try to find cmd in path
+.PP
+Longer desc \&.\&.\&.
+.PP
+cmd: command (binary) to search trought path  path: ':'-separated list of folders name
+.PP
+\fBReturns:\fP
+.RS 4
+Real path to cmd binary (ready to be passed to execve(), or NULL 
+.RE
+.PP
 
 .SS "int parse_env_conf (char * conffile)"
 
 .SS "void shell_loop (int fd)"
+Shell main loop
+.PP
+Loop reading :
+.IP "\(bu" 2
+first the \fIfd\fP var, if not 0
+.IP "\(bu" 2
+second the \fI0\fP fd (standard input)
+.PP
+.PP
+Try to exec each string (readed via \fBget_next_line()\fP) with \fBexec_line()\fP
+.PP
+fd: file descriptor, to a configuration/script file; or to the standard input (and THEN to the stdin)
+.PP
+\fBReturns:\fP
+.RS 4
+Dont return but can exit() 
+.RE
+.PP
 
 .SS "void sighandler (int nb)"
 
