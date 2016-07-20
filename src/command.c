@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/13 12:37:22 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/06/25 02:21:16 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/07/20 21:03:01 by liumsade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,16 +87,17 @@ int			command(char *line, char **env, int bi)
 	av = ft_strsplit(line, "\t ");
 	if (bi && (ret = in_builtins(av)) != 404)
 		;
-	else if (!(access(*av, X_OK)) || (path && (cmd = in_path(*av, path))))
+	else if ((path && (cmd = in_path(*av, path)))
+            || (ft_strchr(*av, '/') && !(access(*av, X_OK))))
 		ret = forkexec(cmd ? cmd : *av, av, env);
 	else
 		ft_putendl((cmd = ft_strjoin("minishell: command not found: ", *av)));
-	while (av[c])
+	while (*(av + c))
 	{
 		free(*(av + c));
 		c++;
 	}
 	free(av);
-	ft_memdel((void**)&cmd);
+    ft_memdel((void**)&cmd);
 	return (ret);
 }
