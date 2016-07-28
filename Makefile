@@ -6,16 +6,16 @@
 #    By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/11 13:41:06 by lpoujade          #+#    #+#              #
-#    Updated: 2016/06/23 04:31:43 by lpoujade         ###   ########.fr        #
+#    Updated: 2016/07/28 20:10:17 by lpoujade         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME=minishell
+NAME=basicshell
 SRCDIR=./src
 OBJDIR=./.obj
 
-CC=gcc
-CFLAGS=-Wall -Werror -Wextra -g -Wno-empty-body
+CC=clang
+CFLAGS=-Wall -Werror -Wextra -g
 CPPFLAGS=-Iincludes/ -Ilibft/includes
 
 LDFLAGS=-Llibft/
@@ -23,8 +23,7 @@ LDLIBS=-lft
 
 LIB=libft/libft.a
 
-SRC=minishell.c access.c prompt.c builtins.c command.c signals.c init.c \
-	builtins_cd.c builtins_env.c shell.c
+SRC=main.c shparse.c ft_strtdel.c access.c cmd.c builtins.c prompt.c
 OBJ=$(SRC:.c=.o)
 
 SRCS=$(addprefix $(SRCDIR)/,$(SRC))

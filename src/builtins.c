@@ -5,45 +5,58 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/06/12 12:24:23 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/06/23 05:19:42 by lpoujade         ###   ########.fr       */
+/*   Created: 2016/07/28 19:28:46 by lpoujade          #+#    #+#             */
+/*   Updated: 2016/07/28 20:06:04 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "basicshell.h"
 
-char				*tr_eq(char *s)
+static void	bi_cd(char **av)
 {
-	int		c;
-	char	*new;
-
-	c = ft_strclchr(s, '=');
-	new = ft_strnew(c);
-	ft_strncat(new, s, c);
-	return (new);
+	if (!av[1] && getenv("HOME"))
+		chdir(getenv("HOME"));
+	else if (av[1])
+	{
+		if (!access(av[1], X_OK))
+			chdir(av[1]);
+		else
+		{
+			ft_putstr("bsh: cd: error for folder: ");
+			ft_putendl(av[1]);
+			ft_putendl("bsh: defaut chdir to '/'");
+			chdir("/");
+		}
+	}
+	else
+		ft_putendl("bsh: cd: error: no $HOME");
 }
 
-int					bi_suenv(char **av)
+int			builtins(t_shcmd *cmd)
 {
-	int		ret;
-	char	*var;
+	int		echo_c;
+	char	*tmp;
 
-	var = NULL;
-	ret = 0;
-	if (!*av)
-		return (-1);
-	else if (**av == 's' && *(av + 1))
+	echo_c = 0;
+	if (!ft_strcmp(cmd->cmd, "cd"))
+		bi_cd(cmd->args);
+	else if (!ft_strcmp(cmd->cmd, "env"))
+		ft_putendl("bsh: env: not implemented yet");
+	else if (!ft_strcmp(cmd->cmd, "setenv") || !ft_strcmp(cmd->cmd, "unsetenv"))
+		ft_putendl("bsh: set/unset env: not implemented yet");
+	else if (!ft_strcmp(cmd->cmd, "exit"))
+		exit(cmd->args[1] ? ft_atoi(cmd->args[1]) : 0);
+	else if (!ft_strcmp(cmd->cmd, "pwd"))
 	{
-		var = tr_eq(*(av + 1));
-		ret = setenv(var, ft_strchr(*(av + 1), '='), 1);
+		ft_putendl((tmp = getcwd(NULL, 0)));
+		free(tmp);
 	}
-	else if (**av == 'u' && *(av + 1))
-		ret = unsetenv(*(av + 1));
-	else if (!*(av + 1))
-		ft_putendl("USAGE");
-	if (ret)
-		ft_putendl("minishell: cannot modify env, or bad arguments");
-	if (var)
-		free(var);
-	return (0);
+	else if (!ft_strcmp(cmd->cmd, "echo"))
+	{
+		while (cmd->args[echo_c])
+			ft_putstr(cmd->args[++echo_c] ? cmd->args[echo_c] : "\n");
+	}
+	else
+		return (0);
+	return (1);
 }

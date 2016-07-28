@@ -6,13 +6,13 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/23 12:12:22 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/06/17 18:49:45 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/07/28 18:06:49 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "basicshell.h"
 
-/**
+/*
 ** Search for str c1 in strs table c2
 **
 ** Iter on c2 strs to find c1. Stop on first occurence of c1 in c2, or when
@@ -23,6 +23,7 @@
 **
 ** @return Pointer to c1 in c2, or NULL (reached end of c2 before finding c1)
 */
+
 char				*cin_c2c(char *c1, char **c2)
 {
 	int	c;
@@ -33,7 +34,7 @@ char				*cin_c2c(char *c1, char **c2)
 	return (*(c2 + c));
 }
 
-/**
+/*
 ** Concat next chars groups in path before ':' char with cmd
 **
 ** Can be call with same value until no more folder to try in <path> or
@@ -45,6 +46,7 @@ char				*cin_c2c(char *c1, char **c2)
 **
 ** @return Pointer to str representing <path_member>/<cmd>, or NULL
 */
+
 static inline char	*cjoin(char *path, char *cmd)
 {
 	char	*ret;
@@ -73,7 +75,7 @@ static inline char	*cjoin(char *path, char *cmd)
 	return (ret);
 }
 
-/**
+/*
 ** Try to find cmd in path
 **
 ** Longer desc
@@ -84,6 +86,7 @@ static inline char	*cjoin(char *path, char *cmd)
 **
 ** @return Real path to cmd binary (ready to be passed to execve(), or NULL
 */
+
 char				*in_path(char *cmd, char *path)
 {
 	char	*tpath;

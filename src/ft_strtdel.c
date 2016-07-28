@@ -1,35 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt.c                                           :+:      :+:    :+:   */
+/*   ft_strtdel.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/06/12 11:40:05 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/07/28 20:15:14 by lpoujade         ###   ########.fr       */
+/*   Created: 2016/07/27 18:19:45 by lpoujade          #+#    #+#             */
+/*   Updated: 2016/07/27 18:51:26 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "basicshell.h"
 
-/*
- ** TODO security
-*/
-
-void	sp_prompt(void)
+void	ft_strtdel(char **str_t)
 {
-	char	*prompt;
-	char	*home;
-
-	prompt = getcwd(NULL, 0);
-	if ((home = getenv("HOME")) && ft_strstr(prompt, home))
+	while (*str_t)
 	{
-		ft_putchar('~');
-		ft_putstr(prompt + ft_strlen(home));
+		free(*str_t);
+		*str_t = NULL;
+		str_t++;
 	}
-	else
-		ft_putstr(prompt);
-	ft_putstr(" > ");
-	free(prompt);
-	return ;
 }
