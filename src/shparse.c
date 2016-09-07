@@ -28,7 +28,7 @@ static void		throw_quote_on(char *line)
 		c++;
 	}
 	if (qount)
-		ft_putendl("bsh: missing terminating quote");
+		ft_putendl("minishell: missing terminating quote");
 }
 
 static void		throw_quote_off(char *line)

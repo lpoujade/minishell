@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/27 17:37:43 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/07 14:37:06 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/07 15:21:43 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int				menv(t_env_item **env, int envcount, char **line);
 char			*mgetenv(t_env_item **env, int envcount, char *key);
 t_env_item		*mgetenv_s(t_env_item **env, int envcount, char *key);
 int				msetenv(t_env_item **env, int envcount, char *keyval);
+int				msetenv_t(t_env_item **env, int envcount, char *key, char *val);
 int				munsetenv(t_env_item **env, int envcount, char *key);
 void			bi_echo(char **args);
 void			ft_strtdel(char **str_t);

@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/05 19:29:05 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/07 13:46:56 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/07 15:22:44 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,27 @@ int		msetenv(t_env_item **env, int envcount, char *keyval)
 		return (-1);
 	if (!(t = mgetenv_s(env, envcount, item[0])))
 	{
-		ft_putendl_fd("bsh: adding item to env not implemented", 2);
+		ft_putendl_fd("minishell: adding item to env not implemented", 2);
 		return (-1);
 	}
 	free(t->value);
 	t->value = item[1];
 	free(item[0]);
 	free(item);
+	return (0);
+}
+
+int		msetenv_t(t_env_item **env, int envcount, char *key, char *val)
+{
+	t_env_item	*t;
+
+	if (!(t = mgetenv_s(env, envcount, key)))
+	{
+		ft_putendl_fd("minishell: adding item to env not implemented", 2);
+		return (-1);
+	}
+	free(t->value);
+	t->value = ft_strdup(val);
 	return (0);
 }
 

@@ -54,7 +54,7 @@ int		exec_cmd(t_shcmd *cmd, t_env_item **env, int envcount)
 			forkexec(f, cmd->args, env, envcount);
 		else
 		{
-			ft_putstr("bsh: command not found: ");
+			ft_putstr("minishell: command not found: ");
 			ft_putendl(cmd->cmd);
 		}
 		if (f)

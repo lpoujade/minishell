@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/01 21:06:05 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/07 13:37:24 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/07 14:57:11 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,8 @@ char			**get_env_keys(t_env_item **env, int envcount)
 			n++;
 			t = env[hash];
 			while ((t = t->next))
-			{
-				if (!(ret[n] = ft_strdup(t->key)))
+				if (!(ret[n++] = ft_strdup(t->key)))
 					return (NULL);
-				n++;
-			}
 		}
 		hash++;
 	}

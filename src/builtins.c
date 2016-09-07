@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/28 19:28:46 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/07 13:35:09 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/07 15:23:08 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,35 @@
 static void	bi_cd(char **av, t_env_item **env, int envcount)
 {
 	char *home;
+	char *pwd;
 
+	pwd = getcwd(NULL, 0);
 	if (!av[1] && (home = mgetenv(env, envcount, "HOME")))
 		chdir(home);
 	else if (av[1])
 	{
-		if (!access(av[1], X_OK))
+		if (!ft_strcmp(av[1], "-"))
+		{
+			ft_putendl(mgetenv(env, envcount, "OLDPWD"));
+			chdir(mgetenv(env, envcount, "OLDPWD"));
+		}
+		else if (!access(av[1], X_OK))
 			chdir(av[1]);
 		else if (!access(av[1], F_OK))
 		{
-			ft_putstr("bsh: cd: error for folder: ");
+			ft_putstr("minishell: cd: error for folder: ");
 			ft_putendl(av[1]);
 		}
 		else
 			ft_putendl_fd("No such directory", 2);
 	}
 	else
-		ft_putendl("bsh: cd: error: no $HOME");
+		ft_putendl("minishell: cd: error: no $HOME");
+	msetenv_t(env, envcount, "OLDPWD", pwd);
+	free(pwd);
+	pwd = getcwd(NULL, 0);
+	msetenv_t(env, envcount, "PWD", pwd);
+	free(pwd);
 }
 
 int			builtins(t_shcmd *cmd, t_env_item **env, int envcount)
