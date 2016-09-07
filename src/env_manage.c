@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/03 19:23:58 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/07 13:46:08 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/07 18:11:55 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,12 +113,9 @@ int			envfree(t_env_item **env, int envcount)
 	while (hash <= envcount)
 	{
 		while (env[hash])
-		{
 			env_item_del(env, hash);
-			if (--envcount < 0)
-				return (1);
-		}
 		hash++;
 	}
+	free(env);
 	return (0);
 }

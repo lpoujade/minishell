@@ -6,7 +6,7 @@
 /*   By: liums <lpoujade@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/31 15:11:19 by liums             #+#    #+#             */
-/*   Updated: 2016/09/07 13:22:17 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/07 17:49:30 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ static int		env_init(t_env_item ***f, char **environ)
 ** items sharing the same hash
 */
 
-int				add_item(char **keyval, t_env_item **env, int envcount, unsigned int hash)
+int				add_item(char **keyval, t_env_item **env, int envcount,
+		unsigned int hash)
 {
 	t_env_item *t;
 	t_env_item *o;

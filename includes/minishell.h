@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/27 17:37:43 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/07 15:21:43 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/07 16:40:44 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int				env_add_item(t_env_item **env, int envcount, t_env_item *item);
 int				add_item(char **keyval, t_env_item **env, int envcount, unsigned int hash);
 int				env_populate(t_env_item ***genv, char **environ);
 
-void			myexit(t_env_item ***env, int envcount, int errnum, char *msg);
+void			myexit(t_env_item ***env, int envcount, char *nu, char *msg);
 
 int				envdup(t_env_item **env, int envcount, t_env_item ***n);
 void			env_item_del(t_env_item **env, int hash);

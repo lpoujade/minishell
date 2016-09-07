@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/28 17:04:24 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/06 16:29:12 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/07 18:14:06 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,7 @@ int		exec_cmd(t_shcmd *cmd, t_env_item **env, int envcount)
 	}
 	if (path)
 		free(path);
+	ft_strtdel(cmd->args);
+	free(cmd->args);
 	return (0);
 }

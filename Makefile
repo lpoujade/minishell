@@ -6,7 +6,7 @@
 #    By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/11 13:41:06 by lpoujade          #+#    #+#              #
-#    Updated: 2016/09/07 14:36:25 by lpoujade         ###   ########.fr        #
+#    Updated: 2016/09/07 18:20:51 by lpoujade         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ LDLIBS=-lft
 
 LIB=libft/libft.a
 
-SRC=main.c shparse.c ft_strtdel.c access.c cmd.c builtins.c prompt.c \
+SRC=main.c shparse.c access.c cmd.c builtins.c prompt.c \
 	hashlib.c print_env.c getenv.c env_manage.c myexit.c env.c
 OBJ=$(SRC:.c=.o)
 

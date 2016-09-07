@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/05 19:29:05 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/07 15:22:44 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/07 18:02:00 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		menv(t_env_item **env, int envcount, char **args)
 
 	ret = 0;
 	new_envcount = envcount;
-	if (!ft_strcmp(*args, "-i"))
+	if (*args && !ft_strcmp(*args, "-i"))
 	{
 		if (!(new_env = malloc(sizeof(t_env_item*) * envcount)))
 			return (-1);
@@ -34,19 +34,22 @@ int		menv(t_env_item **env, int envcount, char **args)
 		args++;
 	}
 	else if ((new_envcount = envdup(env, envcount, &new_env)) < 0)
+	{
+		ft_putendl("bad return");
 		return (-1);
+	}
 	while (*args && ft_strchr(*args, '='))
 	{
 		env_add_item(new_env, new_envcount,
 				(tmp = env_create_item((keyval = ft_strsplit(*args, "=")), 1)));
-		free(keyval[0]);
-		free(keyval[1]);
+		ft_strtdel(keyval);
 		free(keyval);
 		free(tmp);
 		args++;
 	}
 	if (*args)
 	{
+		ft_putendl("arg");
 		cmd = in_path(*args, (path = mgetenv(env, envcount, "PATH")));
 		ret = forkexec(cmd, args, new_env, new_envcount);
 		free(cmd);

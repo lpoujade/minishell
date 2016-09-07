@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/27 17:30:27 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/06 13:16:40 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/07 18:21:33 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	shell_loop(t_env_item **env, int envcount)
 	{
 		sp_prompt(env, envcount);
 		if ((ret = get_next_line(1, &line)) < 0)
-			myexit(&env, envcount, -1, "Error on input");
+			myexit(&env, envcount, "-1", "Error on input");
 		else if (!ret)
 			return ;
 		else
@@ -58,8 +58,8 @@ void	shell_loop(t_env_item **env, int envcount)
 			{
 				if (shparse(line, &cmd, env, envcount) > 0)
 					exec_cmd(&cmd, env, envcount);
-				ft_strtdel(cmd.args);
-				free(cmd.args);
+				else
+					ft_putendl_fd("minishell: parse error", 2);
 			}
 			free(line);
 			line = NULL;
