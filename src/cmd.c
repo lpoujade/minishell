@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/28 17:04:24 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/07 18:14:06 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/11 13:24:29 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int		forkexec(char *cmd, char **av, t_env_item **env, int envcount)
 		ft_putnbr(ret_value);
 		ft_putchar(' ');
 	}
+	env_add_item(env, envcount, env_create_item(ft_strjoin("?=", ft_itoa(ret_value)), 0));
 	return (ret_value);
 }
 

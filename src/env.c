@@ -6,17 +6,35 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/05 19:29:05 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/07 18:02:00 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/11 13:21:35 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		menv(t_env_item **env, int envcount, char **args)
+int		parse_for_env(t_env_item **env, int envcount, char **args)
 {
 	t_env_item	*tmp;
-	t_env_item	**new_env;
 	char		**keyval;
+	int			c;
+
+	c = 0;
+	while (*args && ft_strchr(*args, '='))
+	{
+		keyval = ft_strsplit(*args, "=");
+		env_add_item(env, envcount, (tmp = env_create_item(keyval, 1)));
+		ft_strtdel(keyval);
+		free(keyval);
+		free(tmp);
+		args++;
+		c++;
+	}
+	return (c);
+}
+
+int		menv(t_env_item **env, int envcount, char **args)
+{
+	t_env_item	**new_env;
 	char		*cmd;
 	char		*path;
 	int			new_envcount;
@@ -38,18 +56,9 @@ int		menv(t_env_item **env, int envcount, char **args)
 		ft_putendl("bad return");
 		return (-1);
 	}
-	while (*args && ft_strchr(*args, '='))
-	{
-		env_add_item(new_env, new_envcount,
-				(tmp = env_create_item((keyval = ft_strsplit(*args, "=")), 1)));
-		ft_strtdel(keyval);
-		free(keyval);
-		free(tmp);
-		args++;
-	}
+	args += parse_for_env(new_env, new_envcount, args);
 	if (*args)
 	{
-		ft_putendl("arg");
 		cmd = in_path(*args, (path = mgetenv(env, envcount, "PATH")));
 		ret = forkexec(cmd, args, new_env, new_envcount);
 		free(cmd);
@@ -58,7 +67,6 @@ int		menv(t_env_item **env, int envcount, char **args)
 	else
 		print_env(new_env, new_envcount);
 	envfree(new_env, new_envcount);
-	free(new_env);
 	return (ret);
 }
 
