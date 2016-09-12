@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/12 11:40:05 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/06 12:43:22 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/12 18:54:22 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,22 @@
  ** TODO security
 */
 
-void	sp_prompt(t_env_item **env, int envcount)
+void	sp_prompt(t_env_item *env)
 {
 	char	*prompt;
 	char	*home;
+	char	*prec_ret_val;
 
+	if ((prec_ret_val = mgetenv(env, "?")) && ft_atoi(prec_ret_val) != 0)
+	{
+		ft_putstr(prec_ret_val);
+		ft_putchar(' ');
+	}
+	if (prec_ret_val)
+		free(prec_ret_val);
 	if ((prompt = getcwd(NULL, 0)))
 	{
-		if ((home = mgetenv(env, envcount, "HOME")) && ft_strstr(prompt, home)
+		if ((home = mgetenv(env, "HOME")) && ft_strstr(prompt, home)
 				&& ft_strlen(home) > 2)
 		{
 			ft_putchar('~');

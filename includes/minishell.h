@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/27 17:37:43 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/07 16:40:44 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/12 17:55:52 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,36 +26,41 @@
 
 # include "shell_structs.h"
 
+# define HASHT_SIZE 40
+
 unsigned int	chash(char *word, int max_hash);
-char			**get_env_keys(t_env_item **env, int envcount);
-char			**table_to_str(t_env_item **env, int envcount);
-void			print_env_strtable(t_env_item **env, int envcount);
-void			print_env(t_env_item **env, int envcount);
+char			**get_env_keys(t_env_item **env);
 t_env_item		*env_create_item(char **keyval, int glob);
-int				env_add_item(t_env_item **env, int envcount, t_env_item *item);
-int				add_item(char **keyval, t_env_item **env, int envcount, unsigned int hash);
-int				env_populate(t_env_item ***genv, char **environ);
+int				env_add_item(t_env_item **env, t_env_item *item);
+int				add_item(char **keyval, t_env_item **env, unsigned int hash);
 
-void			myexit(t_env_item ***env, int envcount, char *nu, char *msg);
+void			env_print_node(t_list *m);
+void			env_print(t_env_item *env);
+int				env_populate(t_env_item **env, char **environ);
+int				env_fake_sort(t_list *t, t_list *n);
+void			env_free(t_env_item **env);
+char			*mgetenv(t_env_item *env, char *key);
+int				msetenv(t_env_item *env, char **keyval, char *pair, int g);
+char			**env_to_table(t_env_item *env);
 
-int				envdup(t_env_item **env, int envcount, t_env_item ***n);
+void			myexit(t_env_item **env, char *nu, char *msg);
+
+int				envdup(t_env_item **env, t_env_item ***n);
 void			env_item_del(t_env_item **env, int hash);
-int				envfree(t_env_item **env, int envcount);
 
-int				menv(t_env_item **env, int envcount, char **line);
-char			*mgetenv(t_env_item **env, int envcount, char *key);
-t_env_item		*mgetenv_s(t_env_item **env, int envcount, char *key);
-int				msetenv(t_env_item **env, int envcount, char *keyval);
-int				msetenv_t(t_env_item **env, int envcount, char *key, char *val);
-int				munsetenv(t_env_item **env, int envcount, char *key);
+//int				menv(t_env_item **env, char **line);
+//t_env_item		*mgetenv_s(t_env_item **env, char *key);
+//int				msetenv(t_env_item **env, char *keyval);
+//int				msetenv_t(t_env_item **env, char *key, char *val);
+//int				munsetenv(t_env_item **env, char *key);
 void			bi_echo(char **args);
 void			ft_strtdel(char **str_t);
-int				shparse(char *line, t_shcmd *cmd, t_env_item **env, int ec);
-void			shell_loop(t_env_item **env, int envcount);
-int				forkexec(char *cmd, char **av, t_env_item **env, int envcount);
+int				shparse(char *line, t_shcmd *cmd, t_env_item *env);
+void			shell_loop(t_env_item **env);
+int				forkexec(char *cmd, char **av, t_env_item *env);
 char			*in_path(char *cmd, char *path);
 char			*cin_c2c(char *c1, char **c2);
-int				exec_cmd(t_shcmd *cmd, t_env_item **env, int envcount);
-int				builtins(t_shcmd *cmd, t_env_item **env, int envcount);
-void			sp_prompt(t_env_item **env, int envcount);
+int				exec_cmd(t_shcmd *cmd, t_env_item *env);
+int				builtins(t_shcmd *cmd, t_env_item *env);
+void			sp_prompt(t_env_item *env);
 #endif

@@ -6,13 +6,13 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/03 19:43:35 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/07 17:37:13 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/12 17:47:28 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	myexit(t_env_item ***env, int envcount, char *nu, char *msg)
+void	myexit(t_env_item **env, char *nu, char *msg)
 {
 	int errnum;
 	int n;
@@ -21,6 +21,6 @@ void	myexit(t_env_item ***env, int envcount, char *nu, char *msg)
 	n = 0;
 	if (msg)
 		ft_putendl(msg);
-	n = envfree(*env, envcount);
+	env_free(env);
 	exit(n ? n : errnum);
 }

@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/27 17:41:19 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/03 17:12:48 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/12 17:33:12 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,11 @@ static void		dequote(char **av)
 	}
 }
 
-static void		envvars_replace(char **str, t_env_item **env, int ec)
+static void		envvars_replace(char **str, t_env_item *env)
 {
 	char	*value;
 
-	if ((value = mgetenv(env, ec, (*str) + 1)))
+	if ((value = mgetenv(env, (*str) + 1)))
 	{
 		free(*str);
 		*str = value;
@@ -83,7 +83,7 @@ static void		envvars_replace(char **str, t_env_item **env, int ec)
 	}
 }
 
-int				shparse(char *line, t_shcmd *cmd, t_env_item **env, int ec)
+int				shparse(char *line, t_shcmd *cmd, t_env_item *env)
 {
 	char	**splitted;
 	char	*q;
@@ -99,7 +99,7 @@ int				shparse(char *line, t_shcmd *cmd, t_env_item **env, int ec)
 	while (cmd->args[c])
 	{
 		if (*(cmd->args[c]) == '$')
-			envvars_replace(&(cmd->args[c]), env, ec);
+			envvars_replace(&(cmd->args[c]), env);
 		c++;
 	}
 	return (cmd->args ? 1 : -1);

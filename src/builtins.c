@@ -6,13 +6,13 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/28 19:28:46 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/07 17:37:03 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/12 17:54:16 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*cd_construct_path(t_env_item **env, int envcount, char *av)
+static char	*cd_construct_path(t_env_item *env, char *av)
 {
 	char *fdir;
 	char *oldpwd;
@@ -20,7 +20,7 @@ static char	*cd_construct_path(t_env_item **env, int envcount, char *av)
 	fdir = NULL;
 	if (!ft_strcmp(av, "-"))
 	{
-		oldpwd = mgetenv(env, envcount, "OLDPWD");
+		oldpwd = mgetenv(env, "OLDPWD");
 		ft_putendl(oldpwd);
 		fdir = oldpwd;
 	}
@@ -36,7 +36,7 @@ static char	*cd_construct_path(t_env_item **env, int envcount, char *av)
 	return (fdir);
 }
 
-static int	bi_cd(char **av, t_env_item **env, int envcount)
+static int	bi_cd(char **av, t_env_item *env)
 {
 	char *finaldir;
 	char *pwd;
@@ -44,10 +44,10 @@ static int	bi_cd(char **av, t_env_item **env, int envcount)
 
 	pwd = getcwd(NULL, 0);
 	finaldir = NULL;
-	if (!av[1] && (home = mgetenv(env, envcount, "HOME")))
+	if (!av[1] && (home = mgetenv(env, "HOME")))
 		finaldir = home;
 	else if (av[1])
-		finaldir = cd_construct_path(env, envcount, av[1]);
+		finaldir = cd_construct_path(env, av[1]);
 	else
 		ft_putendl("minishell: cd: error: no $HOME");
 	if (finaldir)
@@ -56,30 +56,30 @@ static int	bi_cd(char **av, t_env_item **env, int envcount)
 			return (-1);
 		free(finaldir);
 	}
-	msetenv_t(env, envcount, "OLDPWD", pwd);
+	/*
+	msetenv_t(env, "OLDPWD", pwd);
 	free(pwd);
-	msetenv_t(env, envcount, "PWD", (pwd = getcwd(NULL, 0)));
+	msetenv_t(env, "PWD", (pwd = getcwd(NULL, 0)));
 	free(pwd);
+	*/
 	return (0);
 }
 
-int			builtins(t_shcmd *cmd, t_env_item **env, int envcount)
+int			builtins(t_shcmd *cmd, t_env_item *env)
 {
 	char	*tmp;
 
 	tmp = NULL;
 	if (!ft_strcmp(cmd->cmd, "cd"))
-		bi_cd(cmd->args, env, envcount);
+		bi_cd(cmd->args, env);
 	else if (!ft_strcmp(cmd->cmd, "env"))
-		menv(env, envcount, cmd->args + 1);
-	else if (!ft_strcmp(cmd->cmd, "getenv"))
-		ft_putendl((tmp = mgetenv(env, envcount, cmd->args[1])));
+		;//menv(env, cmd->args + 1);
 	else if (!ft_strcmp(cmd->cmd, "unsetenv"))
-		munsetenv(env, envcount, cmd->args[1]);
+		;//munsetenv(env, cmd->args[1]);
 	else if (!ft_strcmp(cmd->cmd, "setenv"))
-		msetenv(env, envcount, cmd->args[1]);
+		msetenv(env, NULL, cmd->args[1], 1);
 	else if (!ft_strcmp(cmd->cmd, "exit"))
-		myexit(&env, envcount, cmd->args[1] ? cmd->args[1] : "0", NULL);
+		myexit(&env, cmd->args[1] ? cmd->args[1] : "0", NULL);
 	else if (!ft_strcmp(cmd->cmd, "pwd"))
 		ft_putendl((tmp = getcwd(NULL, 0)));
 	else if (!ft_strcmp(cmd->cmd, "echo"))

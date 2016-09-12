@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/27 17:30:27 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/07 18:21:33 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/12 17:49:50 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,24 @@
 
 int		main(int ac, char **av, char **environ)
 {
-	t_env_item	**env;
-	int			envcount;
+	t_env_item	*env;
 
 	(void)ac;
 	(void)av;
-	envcount = 0;
 	env = NULL;
 	if (environ)
 	{
-		if ((envcount = env_populate(&env, environ)) < 0)
+		if (env_populate(&env, environ) < 0)
 		{
 			ft_putendl_fd("minishell: error reading environ", 2);
 			return (-1);
 		}
 	}
-	else
-	{
-		*env = malloc(sizeof(t_env_item));
-		env = NULL;
-	}
-	shell_loop(env, envcount);
-	envfree(env, envcount);
+	shell_loop(&env);
 	return (EXIT_SUCCESS);
 }
 
-void	shell_loop(t_env_item **env, int envcount)
+void	shell_loop(t_env_item **env)
 {
 	char	*line;
 	t_shcmd	cmd;
@@ -47,17 +39,17 @@ void	shell_loop(t_env_item **env, int envcount)
 
 	while (1)
 	{
-		sp_prompt(env, envcount);
+		sp_prompt(*env);
 		if ((ret = get_next_line(1, &line)) < 0)
-			myexit(&env, envcount, "-1", "Error on input");
+			myexit(env, "-1", "Error on input");
 		else if (!ret)
 			return ;
 		else
 		{
 			if (*line)
 			{
-				if (shparse(line, &cmd, env, envcount) > 0)
-					exec_cmd(&cmd, env, envcount);
+				if (shparse(line, &cmd, *env) > 0)
+					exec_cmd(&cmd, *env);
 				else
 					ft_putendl_fd("minishell: parse error", 2);
 			}
@@ -65,4 +57,5 @@ void	shell_loop(t_env_item **env, int envcount)
 			line = NULL;
 		}
 	}
+	env_free(env);
 }

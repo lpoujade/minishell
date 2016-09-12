@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/03 16:43:20 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/03 16:44:10 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/12 17:00:37 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ typedef struct			s_shcmd
 	char				**args;
 }						t_shcmd;
 
-typedef struct			s_env_item
+typedef struct		s_env_item
 {
-	char				*key;
-	char				*value;
-	int					glob: 1;
 	struct s_env_item	*next;
-}						t_env_item;
+	struct s_env_item	*prev;
+	char				**keyval;
+	int					glob;
+}					t_env_item;
 
 #endif
