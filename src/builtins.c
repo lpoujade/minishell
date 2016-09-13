@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/28 19:28:46 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/12 17:54:16 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/13 20:29:37 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int			builtins(t_shcmd *cmd, t_env_item *env)
 	else if (!ft_strcmp(cmd->cmd, "env"))
 		;//menv(env, cmd->args + 1);
 	else if (!ft_strcmp(cmd->cmd, "unsetenv"))
-		;//munsetenv(env, cmd->args[1]);
+		;//munsetenv(&env, cmd->args[1]);
 	else if (!ft_strcmp(cmd->cmd, "setenv"))
 		msetenv(env, NULL, cmd->args[1], 1);
 	else if (!ft_strcmp(cmd->cmd, "exit"))

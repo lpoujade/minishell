@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/12 15:37:42 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/12 18:54:35 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/13 20:14:58 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,5 +169,35 @@ int			msetenv(t_env_item *env, char **keyval, char *pair, int g)
 		bcp->next = t;
 		t->prev = bcp;
 	}
+	return (0);
+}
+
+int		munsetenv(t_env_item **env, char *key)
+{
+	t_env_item	*a;
+
+	a = *env;
+	if (!ft_strcmp(key, (*env)->keyval[0]))
+	{
+		(*env)->next->prev = NULL;
+		*env = (*env)->next;
+		ft_strtdel(a->keyval);
+		free(a->keyval);
+		a->keyval = NULL;
+		free(a);
+		a = NULL;
+		return (0);
+	}
+	while (a && ft_strcmp(a->keyval[0], key))
+		a = a->next;
+	if (!a)
+		return (-1);
+	a->prev->next = a->next;
+	a->next->prev = a->prev;
+	ft_strtdel(a->keyval);
+	free(a->keyval);
+	a->keyval = NULL;
+	free(a);
+	a = NULL;
 	return (0);
 }

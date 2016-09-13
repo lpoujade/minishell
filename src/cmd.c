@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/28 17:04:24 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/12 18:48:48 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/13 20:34:01 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,8 @@ int		forkexec(char *cmd, char **av, t_env_item *env)
 	}
 	if (father > 0)
 	{
-		ret2env = malloc(sizeof(char*) * 3);
 		waitpid(father, &ret_value, 0);
-		if (!ret2env)
+		if (!(ret2env = ft_strtnew(3)))
 			return (-1);
 		ret2env[0] = ft_strdup("?");
 		ret2env[1] = ft_itoa(WEXITSTATUS(ret_value));
@@ -41,8 +40,7 @@ int		forkexec(char *cmd, char **av, t_env_item *env)
 			ft_putendl("setenv error");
 			return (-1);
 		}
-		free(ret2env[0]);
-		free(ret2env[1]);
+		ft_strtdel(ret2env);
 		free(ret2env);
 	}
 	return (ret_value);

@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/27 17:37:43 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/12 17:55:52 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/13 20:31:54 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 
 # define HASHT_SIZE 40
 
+char		**ft_strtnew(size_t size);
+
 unsigned int	chash(char *word, int max_hash);
 char			**get_env_keys(t_env_item **env);
 t_env_item		*env_create_item(char **keyval, int glob);
@@ -41,6 +43,8 @@ int				env_fake_sort(t_list *t, t_list *n);
 void			env_free(t_env_item **env);
 char			*mgetenv(t_env_item *env, char *key);
 int				msetenv(t_env_item *env, char **keyval, char *pair, int g);
+int				munsetenv(t_env_item **env, char *key);
+int				menv(t_env_item **env, char **line);
 char			**env_to_table(t_env_item *env);
 
 void			myexit(t_env_item **env, char *nu, char *msg);
@@ -48,7 +52,6 @@ void			myexit(t_env_item **env, char *nu, char *msg);
 int				envdup(t_env_item **env, t_env_item ***n);
 void			env_item_del(t_env_item **env, int hash);
 
-//int				menv(t_env_item **env, char **line);
 //t_env_item		*mgetenv_s(t_env_item **env, char *key);
 //int				msetenv(t_env_item **env, char *keyval);
 //int				msetenv_t(t_env_item **env, char *key, char *val);
