@@ -57,7 +57,6 @@ void			env_item_del(t_env_item **env, int hash);
 //int				msetenv_t(t_env_item **env, char *key, char *val);
 //int				munsetenv(t_env_item **env, char *key);
 void			bi_echo(char **args);
-void			ft_strtdel(char **str_t);
 int				shparse(char *line, t_shcmd *cmd, t_env_item *env);
 void			shell_loop(t_env_item **env);
 int				forkexec(char *cmd, char **av, t_env_item *env);

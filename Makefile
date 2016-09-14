@@ -26,7 +26,7 @@ LIB=libft/libft.a
 # hashlib.c print_env.c getenv.c env_manage.c env.c
 
 SRC=main.c shparse.c access.c cmd.c builtins.c prompt.c \
-	myexit.c env_management.c ft_strtnew.c
+	myexit.c env_management.c
 OBJ=$(SRC:.c=.o)
 
 SRCS=$(addprefix $(SRCDIR)/,$(SRC))

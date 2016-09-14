@@ -40,8 +40,7 @@ int		forkexec(char *cmd, char **av, t_env_item *env)
 			ft_putendl("setenv error");
 			return (-1);
 		}
-		ft_strtdel(ret2env);
-		free(ret2env);
+		ft_strtdel(&ret2env);
 	}
 	return (ret_value);
 }
@@ -69,7 +68,6 @@ int		exec_cmd(t_shcmd *cmd, t_env_item *env)
 	}
 	if (path)
 		free(path);
-	ft_strtdel(cmd->args);
-	free(cmd->args);
+	ft_strtdel(&cmd->args);
 	return (0);
 }

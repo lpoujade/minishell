@@ -34,10 +34,7 @@ t_env_item		*env_new_item(char **keyval, char *keyval_in_one, int g)
 	n->prev = NULL;
 	n->glob = g;
 	if (c)
-	{
-		ft_strtdel(keyval);
-		free(keyval);
-	}
+		ft_strtdel(&keyval);
 	return (n);
 }
 
@@ -64,9 +61,7 @@ static void		env_del_one(void *t)
 	t_env_item *item;
 
 	item = (t_env_item*)t;
-	ft_strtdel(item->keyval);
-	free(item->keyval);
-	item->keyval = NULL;
+	ft_strtdel(&item->keyval);
 }
 
 void			env_free(t_env_item **env)
@@ -181,9 +176,7 @@ int		munsetenv(t_env_item **env, char *key)
 	{
 		(*env)->next->prev = NULL;
 		*env = (*env)->next;
-		ft_strtdel(a->keyval);
-		free(a->keyval);
-		a->keyval = NULL;
+		ft_strtdel(&a->keyval);
 		free(a);
 		a = NULL;
 		return (0);
@@ -194,9 +187,7 @@ int		munsetenv(t_env_item **env, char *key)
 		return (-1);
 	a->prev->next = a->next;
 	a->next->prev = a->prev;
-	ft_strtdel(a->keyval);
-	free(a->keyval);
-	a->keyval = NULL;
+	ft_strtdel(&a->keyval);
 	free(a);
 	a = NULL;
 	return (0);
