@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/15 14:36:02 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/15 15:11:54 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/15 17:01:43 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int					menv(t_env_item *env, char **args)
 	ret = 0;
 	if (*args && !ft_strcmp(*args, "-i"))
 	{
-		new_env = NULL;
+		new_env = env_new_item(NULL, "S=minishell", 0);
 		args++;
 	}
 	else if (!(new_env = env_dup(env)))
