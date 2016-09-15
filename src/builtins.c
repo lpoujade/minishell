@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/28 19:28:46 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/15 14:55:37 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/15 16:13:16 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ static char	*cd_construct_path(t_env_item *env, char *av)
 	char *oldpwd;
 
 	fdir = NULL;
-	if (!ft_strcmp(av, "-"))
+	if (!av)
+		fdir = mgetenv(env, "HOME");
+	else if (!ft_strcmp(av, "-"))
 	{
 		oldpwd = mgetenv(env, "OLDPWD");
 		ft_putendl(oldpwd);
@@ -39,29 +41,23 @@ static char	*cd_construct_path(t_env_item *env, char *av)
 static int	bi_cd(char **av, t_env_item *env)
 {
 	char *finaldir;
-	char *pwd;
-	char *home;
+	char	**t;
 
-	pwd = getcwd(NULL, 0);
-	finaldir = NULL;
-	if (!av[1] && (home = mgetenv(env, "HOME")))
-		finaldir = home;
-	else if (av[1])
-		finaldir = cd_construct_path(env, av[1]);
-	else
-		ft_putendl("minishell: cd: error: no $HOME");
-	if (finaldir)
+	t = ft_strtnew(2);
+	t[0] = ft_strdup("OLDPWD");
+	t[1] = mgetenv(env, "PWD");
+	if ((finaldir = cd_construct_path(env, av[1])))
 	{
+		msetenv(env, t, NULL, 1);
 		if (chdir(finaldir))
 			return (-1);
-		free(finaldir);
+		free(t[0]);
+		free(t[1]);
+		t[0] = ft_strdup("PWD");
+		t[1] = finaldir;
+		msetenv(env, t, NULL, 1);
 	}
-	/*
-	msetenv_t(env, "OLDPWD", pwd);
-	free(pwd);
-	msetenv_t(env, "PWD", (pwd = getcwd(NULL, 0)));
-	free(pwd);
-	*/
+	ft_strtdel(&t);
 	return (0);
 }
 
@@ -81,7 +77,7 @@ int			builtins(t_shcmd *cmd, t_env_item *env)
 	else if (!ft_strcmp(cmd->cmd, "exit"))
 		myexit(&env, cmd->args[1] ? cmd->args[1] : "0", NULL);
 	else if (!ft_strcmp(cmd->cmd, "pwd"))
-		ft_putendl((tmp = getcwd(NULL, 0)));
+		ft_putendl((tmp = mgetenv(env, "PWD")));
 	else if (!ft_strcmp(cmd->cmd, "echo"))
 		bi_echo(cmd->args + 1);
 	else
