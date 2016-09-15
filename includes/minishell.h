@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/27 17:37:43 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/13 20:31:54 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/15 14:53:07 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,11 @@ char		**ft_strtnew(size_t size);
 unsigned int	chash(char *word, int max_hash);
 char			**get_env_keys(t_env_item **env);
 t_env_item		*env_create_item(char **keyval, int glob);
+t_env_item		*env_new_item(char **keyval, char *keyval_in_one, int g);
 int				env_add_item(t_env_item **env, t_env_item *item);
 int				add_item(char **keyval, t_env_item **env, unsigned int hash);
 
+int				menv(t_env_item *env, char **args);
 void			env_print_node(t_list *m);
 void			env_print(t_env_item *env);
 int				env_populate(t_env_item **env, char **environ);
@@ -44,7 +46,6 @@ void			env_free(t_env_item **env);
 char			*mgetenv(t_env_item *env, char *key);
 int				msetenv(t_env_item *env, char **keyval, char *pair, int g);
 int				munsetenv(t_env_item **env, char *key);
-int				menv(t_env_item **env, char **line);
 char			**env_to_table(t_env_item *env);
 
 void			myexit(t_env_item **env, char *nu, char *msg);

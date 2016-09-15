@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/27 17:30:27 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/12 17:49:50 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/15 14:43:57 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ int		main(int ac, char **av, char **environ)
 			return (-1);
 		}
 	}
+	else
+		env = env_new_item(NULL, NULL, 0);
 	shell_loop(&env);
+	env_free(&env);
 	return (EXIT_SUCCESS);
 }
 

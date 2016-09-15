@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/12 15:37:42 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/13 20:14:58 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/15 15:16:08 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ t_env_item		*env_new_item(char **keyval, char *keyval_in_one, int g)
 
 	n = NULL;
 	c = 0;
-	if (!(n = malloc(sizeof(t_env_item))) || !(n->keyval = malloc(sizeof(char*) * 3)))
+	if (!(n = malloc(sizeof(t_env_item)))
+			|| !(n->keyval = malloc(sizeof(char*) * 3)))
 		return (NULL);
 	if (keyval_in_one)
 	{
@@ -88,8 +89,8 @@ void			env_print(t_env_item *env)
 
 void			env_print_node(t_list *m)
 {
-	t_env_item *n;
-	char	*s;
+	t_env_item	*n;
+	char		*s;
 
 	n = (t_env_item*)m;
 	if (!(s = ft_strnew(ft_strlen(n->keyval[0]) + ft_strlen(n->keyval[1]) + 1)))
@@ -100,11 +101,12 @@ void			env_print_node(t_list *m)
 	ft_strcat(s, n->keyval[0]);
 	ft_strcat(s, "=");
 	ft_strcat(s, n->keyval[1]);
-	ft_putendl(s);
+	if (*s)
+		ft_putendl(s);
 	free(s);
 }
 
-char		*mgetenv(t_env_item *env, char *key)
+char			*mgetenv(t_env_item *env, char *key)
 {
 	t_env_item *t;
 
@@ -114,7 +116,7 @@ char		*mgetenv(t_env_item *env, char *key)
 	return (t ? ft_strdup(t->keyval[1]) : NULL);
 }
 
-char		**env_to_table(t_env_item *env)
+char			**env_to_table(t_env_item *env)
 {
 	char		**new_env;
 	t_env_item	*t;
@@ -122,7 +124,7 @@ char		**env_to_table(t_env_item *env)
 
 	c = 0;
 	t = env;
-	while((t = t->next))
+	while ((t = t->next))
 		c++;
 	t = env;
 	if (!(new_env = malloc(sizeof(char*) * (c + 1))))
@@ -138,7 +140,7 @@ char		**env_to_table(t_env_item *env)
 	return (new_env);
 }
 
-int			msetenv(t_env_item *env, char **keyval, char *pair, int g)
+int				msetenv(t_env_item *env, char **keyval, char *pair, int g)
 {
 	t_env_item *t;
 	t_env_item *a;
@@ -148,7 +150,7 @@ int			msetenv(t_env_item *env, char **keyval, char *pair, int g)
 	t = env_new_item(keyval, pair, g);
 	while (a && ft_strcmp(a->keyval[0], t->keyval[0]))
 	{
-		bcp = a,
+		bcp = a;
 		a = a->next;
 	}
 	if (a)
@@ -167,7 +169,7 @@ int			msetenv(t_env_item *env, char **keyval, char *pair, int g)
 	return (0);
 }
 
-int		munsetenv(t_env_item **env, char *key)
+int				munsetenv(t_env_item **env, char *key)
 {
 	t_env_item	*a;
 
