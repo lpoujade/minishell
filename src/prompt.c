@@ -22,6 +22,8 @@ void	sp_prompt(t_env_item *env)
 	char	*home;
 	char	*prec_ret_val;
 
+	if (!(prompt = ft_strnew(PATH_MAX)))
+		return ;
 	if ((prec_ret_val = mgetenv(env, "?")) && ft_atoi(prec_ret_val) != 0)
 	{
 		ft_putstr(prec_ret_val);
@@ -29,7 +31,7 @@ void	sp_prompt(t_env_item *env)
 	}
 	if (prec_ret_val)
 		free(prec_ret_val);
-	if ((prompt = getcwd(NULL, 0)))
+	if ((prompt = getcwd(prompt, PATH_MAX)))
 	{
 		if ((home = mgetenv(env, "HOME")) && ft_strstr(prompt, home))
 		{

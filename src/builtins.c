@@ -14,6 +14,21 @@
 
 static char	*cd_construct_path(t_env_item *env, char *av)
 {
+	char	*pwd;
+	char	*tmp;
+
+	(void)env;
+	if (!(pwd = ft_strnew(PATH_MAX)))
+		return (NULL);
+	if (!(pwd = getcwd(pwd, PATH_MAX)))
+		return (NULL);
+	if (!access((tmp = ft_strjoin(pwd, av)), X_OK))
+		return (tmp);
+	return (NULL);
+}
+
+static char	*cd_get_path(t_env_item *env, char *av)
+{
 	char *fdir;
 	char *oldpwd;
 
@@ -46,7 +61,7 @@ static int	bi_cd(char **av, t_env_item *env)
 	t = ft_strtnew(2);
 	t[0] = ft_strdup("OLDPWD");
 	t[1] = mgetenv(env, "PWD");
-	if ((finaldir = cd_construct_path(env, av[1])))
+	if ((finaldir = cd_get_path(env, av[1])))
 	{
 		msetenv(env, t, NULL, 1);
 		if (chdir(finaldir))

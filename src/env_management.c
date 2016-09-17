@@ -127,7 +127,7 @@ char			**env_to_table(t_env_item *env)
 	while ((t = t->next))
 		c++;
 	t = env;
-	if (!(new_env = malloc(sizeof(char*) * (c + 1))))
+	if (!(new_env = ft_strtnew(c + 1)))
 		return (NULL);
 	c = 0;
 	while (t)
@@ -136,7 +136,6 @@ char			**env_to_table(t_env_item *env)
 		c++;
 		t = t->next;
 	}
-	new_env[c] = NULL;
 	return (new_env);
 }
 

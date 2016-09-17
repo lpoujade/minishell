@@ -40,9 +40,9 @@ void	shell_loop(t_env_item **env)
 	t_shcmd	cmd;
 	int		ret;
 
-	while (1)
+	while (sp_prompt(*env), 1)
 	{
-		sp_prompt(*env);
+		//sp_prompt(*env);
 		if ((ret = get_next_line(1, &line)) < 0)
 			myexit(env, "-1", "Error on input");
 		else if (!ret)
