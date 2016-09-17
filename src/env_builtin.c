@@ -6,11 +6,18 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/15 14:36:02 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/15 17:01:43 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/17 16:57:38 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int					env_fake_sort(t_list *t, t_list *n)
+{
+	(void)t;
+	(void)n;
+	return (1);
+}
 
 static t_env_item	*env_dup(t_env_item *env)
 {
@@ -18,7 +25,8 @@ static t_env_item	*env_dup(t_env_item *env)
 	t_env_item	*tmp;
 	t_env_item	*ne;
 
-	t = env;
+	if (!(t = env))
+		return (NULL);
 	ne = env_new_item(t->keyval, NULL, 1);
 	while ((t = t->next))
 	{
@@ -28,34 +36,48 @@ static t_env_item	*env_dup(t_env_item *env)
 	return (ne);
 }
 
+static int			launch_cmd(t_env_item *e, t_env_item *new_e, char **av)
+{
+	char	*path;
+	int		ret;
+	t_shcmd	cmd;
+	char	*cmd_path;
+
+	ret = 0;
+	cmd.cmd = *av;
+	cmd.args = av;
+	if (!builtins(&cmd, new_e))
+	{
+		path = mgetenv(e, "PATH");
+		cmd_path = in_path(*av, path);
+		ret = forkexec(cmd_path, av, new_e);
+		free(cmd_path);
+		free(path);
+	}
+	path = ft_itoa(WEXITSTATUS(ret));
+	msetenv(&e, NULL, (cmd_path = ft_strjoin("?=", path)), 0);
+	free(path);
+	free(cmd_path);
+	return (ret);
+}
+
 int					menv(t_env_item *env, char **args)
 {
 	t_env_item	*new_env;
-	char		*cmd;
-	char		*path;
 	int			ret;
 
 	ret = 0;
 	if (*args && !ft_strcmp(*args, "-i"))
 	{
-		new_env = env_new_item(NULL, "S=minishell", 0);
+		new_env = NULL;
 		args++;
 	}
 	else if (!(new_env = env_dup(env)))
 		return (-1);
 	while (*args && ft_strchr(*args, '='))
-	{
-		msetenv(new_env, NULL, *args, 1);
-		args++;
-	}
+		msetenv(&new_env, NULL, *args++, 1);
 	if (*args)
-	{
-		path = mgetenv(env, "PATH");
-		cmd = in_path(*args, path);
-		ret = forkexec(cmd, args, new_env);
-		free(cmd);
-		free(path);
-	}
+		launch_cmd(env, new_env, args);
 	else
 		env_print(new_env);
 	env_free(&new_env);

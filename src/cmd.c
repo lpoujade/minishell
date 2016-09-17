@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/28 17:04:24 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/15 15:08:33 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/17 16:22:40 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ int		forkexec(char *cmd, char **av, t_env_item *env)
 		exit(EXIT_FAILURE);
 	if (!father)
 	{
-		if (!(tmp_env = env_to_table(env)))
-			return (-1);
+		tmp_env = env_to_table(env);
 		if ((execve(cmd, av, tmp_env)))
 			exit(EXIT_FAILURE);
 	}
@@ -34,7 +33,7 @@ int		forkexec(char *cmd, char **av, t_env_item *env)
 		return (-1);
 	ret2env[0] = ft_strdup("?");
 	ret2env[1] = ft_itoa(WEXITSTATUS(ret_value));
-	if (msetenv(env, ret2env, NULL, 1))
+	if (msetenv(&env, ret2env, NULL, 1))
 		return (-1);
 	ft_strtdel(&ret2env);
 	return (ret_value);

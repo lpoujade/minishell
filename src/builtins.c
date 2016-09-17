@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/28 19:28:46 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/15 16:13:16 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/17 16:23:42 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static char	*cd_construct_path(t_env_item *env, char *av)
 	char	*pwd;
 	char	*tmp;
 
+	return (ft_strdup(av)); // -------------------------
 	(void)env;
 	if (!(pwd = ft_strnew(PATH_MAX)))
 		return (NULL);
@@ -42,7 +43,7 @@ static char	*cd_get_path(t_env_item *env, char *av)
 		fdir = oldpwd;
 	}
 	else if (!access(av, X_OK))
-		fdir = ft_strdup(av);
+		fdir = cd_construct_path(env, av);
 	else if (!access(av, F_OK))
 	{
 		ft_putstr("minishell: cd: error for folder: ");
@@ -55,7 +56,7 @@ static char	*cd_get_path(t_env_item *env, char *av)
 
 static int	bi_cd(char **av, t_env_item *env)
 {
-	char *finaldir;
+	char	*finaldir;
 	char	**t;
 
 	t = ft_strtnew(2);
@@ -63,14 +64,14 @@ static int	bi_cd(char **av, t_env_item *env)
 	t[1] = mgetenv(env, "PWD");
 	if ((finaldir = cd_get_path(env, av[1])))
 	{
-		msetenv(env, t, NULL, 1);
+		msetenv(&env, t, NULL, 1);
 		if (chdir(finaldir))
 			return (-1);
 		free(t[0]);
 		free(t[1]);
 		t[0] = ft_strdup("PWD");
 		t[1] = finaldir;
-		msetenv(env, t, NULL, 1);
+		msetenv(&env, t, NULL, 1);
 	}
 	ft_strtdel(&t);
 	return (0);
@@ -88,7 +89,7 @@ int			builtins(t_shcmd *cmd, t_env_item *env)
 	else if (!ft_strcmp(cmd->cmd, "unsetenv"))
 		munsetenv(&env, cmd->args[1]);
 	else if (!ft_strcmp(cmd->cmd, "setenv"))
-		msetenv(env, NULL, cmd->args[1], 1);
+		msetenv(&env, NULL, cmd->args[1], 1);
 	else if (!ft_strcmp(cmd->cmd, "exit"))
 		myexit(&env, cmd->args[1] ? cmd->args[1] : "0", NULL);
 	else if (!ft_strcmp(cmd->cmd, "pwd"))

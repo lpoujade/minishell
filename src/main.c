@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/27 17:30:27 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/15 16:45:51 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/17 14:39:26 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ void	shell_loop(t_env_item **env)
 	t_shcmd	cmd;
 	int		ret;
 
-	while (sp_prompt(*env), 1)
+	while (1)
 	{
-		//sp_prompt(*env);
+		sp_prompt(*env);
 		if ((ret = get_next_line(1, &line)) < 0)
 			myexit(env, "-1", "Error on input");
 		else if (!ret)
