@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/27 17:30:27 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/17 14:39:26 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/19 19:02:59 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		main(int ac, char **av, char **environ)
 		}
 	}
 	else
-		env = env_new_item(NULL, "SHELL=minishell", 0);
+		env = NULL;
 	shell_loop(&env);
 	env_free(&env);
 	return (EXIT_SUCCESS);
@@ -52,7 +52,7 @@ void	shell_loop(t_env_item **env)
 			if (*line)
 			{
 				if (shparse(line, &cmd, *env) > 0)
-					exec_cmd(&cmd, *env);
+					exec_cmd(&cmd, env);
 				else
 					ft_putendl_fd("minishell: parse error", 2);
 			}

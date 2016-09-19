@@ -6,13 +6,13 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/28 17:04:24 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/17 16:22:40 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/19 18:13:47 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		forkexec(char *cmd, char **av, t_env_item *env)
+int		forkexec(char *cmd, char **av, t_env_item **env)
 {
 	pid_t	father;
 	char	**tmp_env;
@@ -24,22 +24,21 @@ int		forkexec(char *cmd, char **av, t_env_item *env)
 		exit(EXIT_FAILURE);
 	if (!father)
 	{
-		tmp_env = env_to_table(env);
+		tmp_env = env_to_table(*env);
 		if ((execve(cmd, av, tmp_env)))
 			exit(EXIT_FAILURE);
 	}
 	waitpid(father, &ret_value, 0);
-	if (!(ret2env = ft_strtnew(3)))
+	if (!(ret2env = ft_strtnew(2)))
 		return (-1);
 	ret2env[0] = ft_strdup("?");
 	ret2env[1] = ft_itoa(WEXITSTATUS(ret_value));
-	if (msetenv(&env, ret2env, NULL, 1))
-		return (-1);
+	msetenv(env, ret2env, NULL, 1);
 	ft_strtdel(&ret2env);
 	return (ret_value);
 }
 
-int		exec_cmd(t_shcmd *cmd, t_env_item *env)
+int		exec_cmd(t_shcmd *cmd, t_env_item **env)
 {
 	char		*f;
 	char		*path;
@@ -48,7 +47,7 @@ int		exec_cmd(t_shcmd *cmd, t_env_item *env)
 	path = NULL;
 	if (!builtins(cmd, env))
 	{
-		if (!(path = mgetenv(env, "PATH")))
+		if (!(path = mgetenv(*env, "PATH")))
 			ft_putendl("NO PATH");
 		else if ((f = in_path(cmd->cmd, path)))
 			forkexec(f, cmd->args, env);

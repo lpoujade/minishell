@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/27 17:37:43 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/17 16:21:00 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/19 18:10:15 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 
 t_env_item		*env_new_item(char **keyval, char *keyval_in_one, int g);
 
-int				menv(t_env_item *env, char **args);
+int				menv(t_env_item **env, char **args);
 int				env_populate(t_env_item **env, char **environ);
 int				env_fake_sort(t_list *t, t_list *n);
 int				msetenv(t_env_item **env, char **keyval, char *pair, int g);
@@ -54,10 +54,10 @@ void			env_item_del(t_env_item **env, int hash);
 void			bi_echo(char **args);
 int				shparse(char *line, t_shcmd *cmd, t_env_item *env);
 void			shell_loop(t_env_item **env);
-int				forkexec(char *cmd, char **av, t_env_item *env);
+int				forkexec(char *cmd, char **av, t_env_item **env);
 char			*in_path(char *cmd, char *path);
 char			*cin_c2c(char *c1, char **c2);
-int				exec_cmd(t_shcmd *cmd, t_env_item *env);
-int				builtins(t_shcmd *cmd, t_env_item *env);
+int				exec_cmd(t_shcmd *cmd, t_env_item **env);
+int				builtins(t_shcmd *cmd, t_env_item **env);
 void			sp_prompt(t_env_item *env);
 #endif

@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/28 19:28:46 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/17 16:23:42 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/19 18:08:20 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,23 +77,23 @@ static int	bi_cd(char **av, t_env_item *env)
 	return (0);
 }
 
-int			builtins(t_shcmd *cmd, t_env_item *env)
+int			builtins(t_shcmd *cmd, t_env_item **env)
 {
 	char	*tmp;
 
 	tmp = NULL;
 	if (!ft_strcmp(cmd->cmd, "cd"))
-		bi_cd(cmd->args, env);
+		bi_cd(cmd->args, *env);
 	else if (!ft_strcmp(cmd->cmd, "env"))
 		menv(env, cmd->args + 1);
 	else if (!ft_strcmp(cmd->cmd, "unsetenv"))
-		munsetenv(&env, cmd->args[1]);
+		munsetenv(env, cmd->args[1]);
 	else if (!ft_strcmp(cmd->cmd, "setenv"))
-		msetenv(&env, NULL, cmd->args[1], 1);
+		msetenv(env, NULL, cmd->args[1], 1);
 	else if (!ft_strcmp(cmd->cmd, "exit"))
-		myexit(&env, cmd->args[1] ? cmd->args[1] : "0", NULL);
+		myexit(env, cmd->args[1] ? cmd->args[1] : "0", NULL);
 	else if (!ft_strcmp(cmd->cmd, "pwd"))
-		ft_putendl((tmp = mgetenv(env, "PWD")));
+		ft_putendl((tmp = mgetenv(*env, "PWD")));
 	else if (!ft_strcmp(cmd->cmd, "echo"))
 		bi_echo(cmd->args + 1);
 	else
