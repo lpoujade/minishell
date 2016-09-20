@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/27 17:37:43 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/19 18:10:15 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/20 11:50:34 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void			myexit(t_env_item **env, char *nu, char *msg);
 void			env_item_del(t_env_item **env, int hash);
 
 void			bi_echo(char **args);
+int				bi_cd(char **av, t_env_item *env);
 int				shparse(char *line, t_shcmd *cmd, t_env_item *env);
 void			shell_loop(t_env_item **env);
 int				forkexec(char *cmd, char **av, t_env_item **env);

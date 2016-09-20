@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/17 16:05:05 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/19 18:03:08 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/20 10:19:24 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int				msetenv(t_env_item **env, char **keyval, char *pair, int g)
 	a = *env;
 	while (a->next && ft_strcmp(a->keyval[0], t->keyval[0]))
 		a = a->next;
-	if (a->next)
+	if (a->next || !ft_strcmp(a->keyval[0], t->keyval[0]))
 	{
 		free(a->keyval[1]);
 		a->keyval[1] = ft_strdup(t->keyval[1]);

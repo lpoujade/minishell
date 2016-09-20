@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/12 15:37:42 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/17 16:52:09 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/20 10:23:16 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_env_item		*env_new_item(char **keyval, char *keyval_in_one, int g)
 	n = NULL;
 	c = 0;
 	if (!(n = malloc(sizeof(t_env_item)))
-			|| !(n->keyval = malloc(sizeof(char*) * 3)))
+			|| !(n->keyval = ft_strtnew(2)))
 		return (NULL);
 	if (keyval_in_one)
 	{

@@ -6,7 +6,7 @@
 #    By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/11 13:41:06 by lpoujade          #+#    #+#              #
-#    Updated: 2016/09/17 16:05:20 by lpoujade         ###   ########.fr        #
+#    Updated: 2016/09/20 11:50:11 by lpoujade         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ LIB=libft/libft.a
 # hashlib.c print_env.c getenv.c env_manage.c env.c
 
 SRC=main.c shparse.c access.c cmd.c builtins.c prompt.c \
-	myexit.c env_management.c env_builtin.c env_modify.c
+	myexit.c env_management.c env_builtin.c env_modify.c bi_cd.c
 OBJ=$(SRC:.c=.o)
 
 SRCS=$(addprefix $(SRCDIR)/,$(SRC))
