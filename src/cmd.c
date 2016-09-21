@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/28 17:04:24 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/20 10:34:20 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/20 16:04:53 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ int		exec_cmd(t_shcmd *cmd, t_env_item **env)
 	{
 		if (!(path = mgetenv(*env, "PATH")))
 			ft_putendl("NO PATH");
-		else if ((f = in_path(cmd->cmd, path)))
+		else if ((ft_strchr(cmd->cmd, '/') && (f = ft_strdup(cmd->cmd)))
+				|| (f = in_path(cmd->cmd, path)))
 			forkexec(f, cmd->args, env);
 		else
 		{
