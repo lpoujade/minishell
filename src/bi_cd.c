@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 11:47:38 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/22 15:46:03 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/22 16:34:05 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,9 @@ static char	*cd_construct_path(t_env_item *env, char *av)
 		free(pwd);
 		return (NULL);
 	}
-	else
-	{
+	else if (!(pwd = getcwd(pwd, PATH_MAX)))
 		ft_strcpy(pwd, tmp);
-		free(tmp);
-	}
+	free(tmp);
 	if (pwd[ft_strlen(pwd) - 1] != '/')
 		ft_strcat(pwd, "/");
 	ret = path_clean(ft_strjoin(pwd, av));
