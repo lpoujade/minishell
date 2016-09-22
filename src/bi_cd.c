@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 11:47:38 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/21 17:54:03 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/22 12:47:13 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,34 +17,27 @@ static char	*path_clean(char *path)
 	char	*tmp;
 	char	*prev;
 	char	*buf;
-	char	*t;
 
 	tmp = path + 1;
-	buf = NULL;
+	prev = tmp;
 	while (tmp)
 	{
+		buf = NULL;
 		if (*tmp == '.' && *(tmp + 1) == '.'
 				&& ((*(tmp + 2) == '/') || !*(tmp + 2)))
-		{
-			buf = ft_strndup(prev, (tmp - prev) + (*(tmp + 2) ? 3 : 2));
-			t = ft_strrmstr(path, buf);
-			free(path);
-			path = t;
-			free(buf);
-			buf = NULL;
-		}
+			buf = ft_strndup(prev, (int)((tmp - prev) + (*(tmp + 2) ? 3 : 2)));
 		else if (*tmp == '.' && (!*(tmp + 1) || *(tmp + 1) == '/'))
+			buf = ft_strndup(tmp, *(tmp + 1) ? 2 : 1);
+		if (buf)
 		{
-			t = ft_strrmstr(path, tmp);
-			free(path);
-			path = t;
+			path = ft_strrmstr(path, buf);
+			free(buf);
+			tmp = path + 1;
 		}
 		prev = tmp;
 		if ((tmp = ft_strchr(tmp, '/')))
 			tmp += 1;
 	}
-	if (buf)
-		free(buf);
 	return (path);
 }
 

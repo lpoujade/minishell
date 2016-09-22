@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/12 15:37:42 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/20 10:23:16 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/22 12:17:37 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ char			**env_to_table(t_env_item *env)
 	while ((t = t->next))
 		c++;
 	t = env;
-	if (!(new_env = ft_strtnew(c + 1)))
+	if (!(new_env = ft_strtnew((size_t)(c + 1))))
 		return (NULL);
 	c = 0;
 	while (t)

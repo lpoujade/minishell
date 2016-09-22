@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/15 14:36:02 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/20 16:06:42 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/22 11:33:54 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,9 @@ static int			launch_cmd(t_env_item **e, t_env_item **new_e, char **av)
 			ret = forkexec(cmd_path, av, new_e);
 		free(cmd_path);
 		free(path);
+		ret = cmd_path ? WEXITSTATUS(ret) : 127;
 	}
-	if (path)
-		path = ft_itoa(WEXITSTATUS(ret));
-	else
-		path = ft_strdup("127");
+	path = ft_itoa(ret);
 	msetenv(e, NULL, (cmd_path = ft_strjoin("?=", path)), 0);
 	free(path);
 	free(cmd_path);

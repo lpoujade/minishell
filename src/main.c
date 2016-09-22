@@ -1,18 +1,38 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/07/27 17:30:27 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/19 19:02:59 by lpoujade         ###   ########.fr       */
-/*                                                                            */
+/*																			  */
+/*														  :::	   ::::::::   */
+/*	 main.c												:+:		 :+:	:+:   */
+/*													  +:+ +:+		  +:+	  */
+/*	 By: lpoujade <lpoujade@student.42.fr>			+#+  +:+	   +#+		  */
+/*												  +#+#+#+#+#+	+#+			  */
+/*	 Created: 2016/07/27 17:30:27 by lpoujade		   #+#	  #+#			  */
+/*	 Updated: 2016/09/22 12:37:43 by lpoujade		  ###	########.fr		  */
+/*																			  */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		main(int ac, char **av, char **environ)
+static int		shell_init(t_env_item **env)
+{
+	char	*pwd;
+	char	*t;
+
+	if (!*env)
+		msetenv(env, NULL, "PATH=/usr/bin:/bin:/usr/sbin:/sbin", 1);
+	if (!(pwd = malloc(PATH_MAX * sizeof(char))))
+		return (-1);
+	if (!(pwd = getcwd(pwd, PATH_MAX)))
+	{
+		ft_putendl_fd("minishell: start in bad directory", 2);
+		exit(10);
+	}
+	msetenv(env, NULL, (t = ft_strjoin("PWD=", pwd)), 1);
+	free(t);
+	free(pwd);
+	return (0);
+}
+
+int				main(int ac, char **av, char **environ)
 {
 	t_env_item	*env;
 
@@ -29,12 +49,13 @@ int		main(int ac, char **av, char **environ)
 	}
 	else
 		env = NULL;
+	shell_init(&env);
 	shell_loop(&env);
 	env_free(&env);
 	return (EXIT_SUCCESS);
 }
 
-void	shell_loop(t_env_item **env)
+void			shell_loop(t_env_item **env)
 {
 	char	*line;
 	t_shcmd	cmd;
@@ -46,7 +67,7 @@ void	shell_loop(t_env_item **env)
 		if ((ret = get_next_line(1, &line)) < 0)
 			myexit(env, "-1", "Error on input");
 		else if (!ret)
-			return ;
+			break ;
 		else
 		{
 			if (*line)
@@ -60,5 +81,4 @@ void	shell_loop(t_env_item **env)
 			line = NULL;
 		}
 	}
-	env_free(env);
 }

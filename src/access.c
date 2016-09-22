@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/23 12:12:22 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/06 16:51:57 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/22 12:13:28 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ char				*in_path(char *cmd, char *path)
 	int		c;
 
 	c = 0;
+	ccm = NULL;
 	while (path && access((ccm = cjoin(path, cmd)), X_OK))
 	{
 		if ((path = ft_strchr(path, ':')))
@@ -101,7 +102,7 @@ char				*in_path(char *cmd, char *path)
 		}
 		c++;
 	}
-	if (!path)
+	if (!path && ccm)
 	{
 		free(ccm);
 		ccm = NULL;
