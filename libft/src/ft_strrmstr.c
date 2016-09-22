@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 13:55:56 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/22 16:30:51 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/22 16:50:39 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*ft_strrmstr(char *str, char *torm)
 	{
 		if ((str + c) == subs)
 			sec += ft_strlen(torm);
-		str[c] = c + sec < len ? str[c + sec] : 0;
+		str[c] = str[c + sec];
 		c++;
 	}
 	str[c] = 0;
