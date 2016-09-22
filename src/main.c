@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/22 13:51:37 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/22 14:56:25 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/22 16:07:53 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,25 @@ static int		shell_init(t_env_item **env)
 {
 	char	*pwd;
 	char	*t;
+	char	*shlvl;
 
 	if (!*env)
 		msetenv(env, NULL, "PATH=/usr/bin:/bin:/usr/sbin:/sbin", 1);
 	if (!(pwd = malloc(sizeof(char) * PATH_MAX)))
 		return (-1);
 	if (!(pwd = getcwd(pwd, PATH_MAX)))
-	{
-		ft_putendl_fd("minishell: start in bad directory", 2);
-		exit(10);
-	}
+		myexit(env, "10", "minishell: start in bad directory");
 	msetenv(env, NULL, (t = ft_strjoin("PWD=", pwd)), 1);
 	free(t);
 	free(pwd);
+	if ((shlvl = mgetenv(*env, "SHLVL")))
+	{
+		t = ft_itoa(ft_atoi(shlvl) + 1);
+		free(shlvl);
+		msetenv(env, NULL, (shlvl = ft_strjoin("SHLVL=", t)), 1);
+		free(shlvl);
+		free(t);
+	}
 	return (0);
 }
 
