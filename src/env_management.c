@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/12 15:37:42 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/22 12:17:37 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/22 18:32:02 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_env_item		*env_new_item(char **keyval, char *keyval_in_one, int g)
 		c = 1;
 	}
 	n->keyval[0] = ft_strdup(keyval[0]);
-	n->keyval[1] = ft_strdup(keyval[1]);
+	n->keyval[1] = keyval[1] ? ft_strdup(keyval[1]) : NULL;
 	n->keyval[2] = NULL;
 	n->next = NULL;
 	n->prev = NULL;
