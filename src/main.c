@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																			  */
-/*														  :::	   ::::::::   */
-/*	 main.c												:+:		 :+:	:+:   */
-/*													  +:+ +:+		  +:+	  */
-/*	 By: lpoujade <lpoujade@student.42.fr>			+#+  +:+	   +#+		  */
-/*												  +#+#+#+#+#+	+#+			  */
-/*	 Created: 2016/07/27 17:30:27 by lpoujade		   #+#	  #+#			  */
-/*	 Updated: 2016/09/22 12:37:43 by lpoujade		  ###	########.fr		  */
-/*																			  */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/09/22 13:51:37 by lpoujade          #+#    #+#             */
+/*   Updated: 2016/09/22 13:59:26 by lpoujade         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
@@ -19,7 +19,7 @@ static int		shell_init(t_env_item **env)
 
 	if (!*env)
 		msetenv(env, NULL, "PATH=/usr/bin:/bin:/usr/sbin:/sbin", 1);
-	if (!(pwd = malloc(PATH_MAX * sizeof(char))))
+	if (!(pwd = malloc(sizeof(char) * PATH_MAX)))
 		return (-1);
 	if (!(pwd = getcwd(pwd, PATH_MAX)))
 	{
