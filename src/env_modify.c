@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/17 16:05:05 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/22 18:40:10 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/22 18:49:16 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,8 @@ int				msetenv(t_env_item **env, char **keyval, char *pair, int g)
 	if (pair && setenv_check(pair))
 		return (1);
 	t = env_new_item(keyval, pair, g);
-	if (!*env)
-	{
-		*env = t;
+	if (!*env && (*env = t))
 		return (0);
-	}
 	a = *env;
 	while (a->next && ft_strcmp(a->keyval[0], t->keyval[0]))
 		a = a->next;

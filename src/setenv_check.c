@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/22 18:35:31 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/22 18:42:45 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/22 18:49:36 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int		setenv_check(char *pair)
 {
 	char	*t;
+
 	if (!(t = ft_strchr(pair, '=')))
 	{
 		ft_putendl_fd("minishell: bad parameter", 2);
