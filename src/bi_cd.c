@@ -6,11 +6,25 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 11:47:38 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/22 16:50:06 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/22 17:56:32 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static char	*strndup_wrap(char *prev, char *tmp)
+{
+	char	*buf;
+	char	*t;
+
+	t = ft_strndup(prev, (int)(tmp - prev));
+	if (*tmp == '.' && *(tmp + 1) == '.' && *(tmp + 2) == '/')
+		buf = ft_strjoin(t, "../");
+	else
+		buf = ft_strjoin(t, "..");
+	free(t);
+	return (buf);
+}
 
 static char	*path_clean(char *path)
 {
@@ -23,11 +37,12 @@ static char	*path_clean(char *path)
 	while (tmp)
 	{
 		buf = NULL;
+		ft_putendl(tmp);
 		if (*tmp == '.' && *(tmp + 1) == '.'
 				&& ((*(tmp + 2) == '/') || !*(tmp + 2)))
-			buf = ft_strndup(prev, (int)((tmp - prev) + (*(tmp + 2) ? 3 : 2)));
+			buf = strndup_wrap(prev, tmp);
 		else if (*tmp == '.' && (!*(tmp + 1) || *(tmp + 1) == '/'))
-			buf = ft_strndup(tmp, *(tmp + 1) ? 2 : 1);
+			buf = ft_strdup(".");
 		if (buf)
 		{
 			path = ft_strrmstr(path, buf);
@@ -51,14 +66,12 @@ static char	*cd_construct_path(t_env_item *env, char *av)
 		return (!access(av, X_OK) ? path_clean(ft_strdup(av)) : NULL);
 	if (!(pwd = ft_strnew(PATH_MAX)))
 		return (NULL);
-	if (!(tmp = mgetenv(env, "PWD")))
-	{
-		free(pwd);
-		return (NULL);
-	}
-	else if (!(pwd = getcwd(pwd, PATH_MAX)))
-		ft_strcpy(pwd, tmp);
-	free(tmp);
+	if (!(getcwd(pwd, PATH_MAX)))
+		if ((tmp = mgetenv(env, "PWD")))
+		{
+			ft_strcpy(pwd, tmp);
+			free(tmp);
+		}
 	if (pwd[ft_strlen(pwd) - 1] != '/')
 		ft_strcat(pwd, "/");
 	ret = path_clean(ft_strjoin(pwd, av));
