@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/15 14:36:02 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/22 14:48:34 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/22 15:56:22 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ static int			launch_cmd(t_env_item **e, t_env_item **new_e, char **av)
 	if (!(ret = builtins(&cmd, new_e)))
 	{
 		path = mgetenv(*e, "PATH");
-		if (path && (cmd_path = in_path(*av, path)))
+		cmd_path = ft_strchr(*av, '/') ? ft_strdup(*av) : in_path(*av, path);
+		if (cmd_path)
 		{
 			ret = forkexec(cmd_path, av, new_e);
 			free(cmd_path);
