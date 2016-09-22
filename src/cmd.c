@@ -6,18 +6,17 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/28 17:04:24 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/20 16:04:53 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/22 14:50:21 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		forkexec(char *cmd, char **av, t_env_item **env)
+int			forkexec(char *cmd, char **av, t_env_item **env)
 {
 	pid_t	father;
 	char	**tmp_env;
 	int		ret_value;
-	char	**ret2env;
 
 	ret_value = 0;
 	if ((father = fork()) < 0)
@@ -29,40 +28,48 @@ int		forkexec(char *cmd, char **av, t_env_item **env)
 			exit(EXIT_FAILURE);
 	}
 	waitpid(father, &ret_value, 0);
-	if (!(ret2env = ft_strtnew(2)))
-		return (-1);
-	ret2env[0] = ft_strdup("?");
-	ret2env[1] = ft_itoa(WEXITSTATUS(ret_value));
-	msetenv(env, ret2env, NULL, 1);
-	ft_strtdel(&ret2env);
-	return (ret_value);
+	return (WEXITSTATUS(ret_value));
 }
 
-int		exec_cmd(t_shcmd *cmd, t_env_item **env)
+static int	exc(t_env_item **env, t_shcmd *cmd)
 {
-	char		*f;
-	char		*path;
+	int		ret;
+	char	*path;
+	char	*f;
 
 	f = NULL;
-	path = NULL;
-	if (!builtins(cmd, env))
+	path = mgetenv(*env, "PATH");
+	if (path && ((ft_strchr(cmd->cmd, '/') && (f = ft_strdup(cmd->cmd)))
+				|| (f = in_path(cmd->cmd, path))))
+		ret = forkexec(f, cmd->args, env);
+	else
 	{
-		if (!(path = mgetenv(*env, "PATH")))
-			ft_putendl("NO PATH");
-		else if ((ft_strchr(cmd->cmd, '/') && (f = ft_strdup(cmd->cmd)))
-				|| (f = in_path(cmd->cmd, path)))
-			forkexec(f, cmd->args, env);
-		else
-		{
-			ft_putstr("minishell: command not found: ");
-			ft_putendl(cmd->cmd);
-		}
-		if (f)
-			free(f);
+		ret = 127;
+		ft_putstr("minishell: command not found: ");
+		ft_putendl(cmd->cmd);
 	}
 	if (path)
 		free(path);
+	if (f)
+		free(f);
+	return (ret);
+}
+
+int			exec_cmd(t_shcmd *cmd, t_env_item **env)
+{
+	int			ret;
+	char		*rval;
+	char		*rtxt;
+
+	if (!(ret = builtins(cmd, env)))
+		ret = exc(env, cmd);
+	else
+		ret--;
+	rval = ft_itoa(ret);
 	if (cmd->args)
 		ft_strtdel(&cmd->args);
-	return (0);
+	msetenv(env, NULL, (rtxt = ft_strjoin("?=", rval)), 1);
+	free(rval);
+	free(rtxt);
+	return (ret);
 }

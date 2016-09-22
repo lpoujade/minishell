@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/15 14:36:02 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/22 11:33:54 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/22 14:48:34 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,30 +43,31 @@ static int			launch_cmd(t_env_item **e, t_env_item **new_e, char **av)
 	t_shcmd	cmd;
 	char	*cmd_path;
 
-	ret = 0;
-	path = NULL;
+	cmd_path = NULL;
 	cmd.cmd = *av;
 	cmd.args = av;
-	if (!builtins(&cmd, new_e))
+	if (!(ret = builtins(&cmd, new_e)))
 	{
 		path = mgetenv(*e, "PATH");
-		if ((cmd_path = in_path(*av, path)))
+		if (path && (cmd_path = in_path(*av, path)))
+		{
 			ret = forkexec(cmd_path, av, new_e);
-		free(cmd_path);
-		free(path);
-		ret = cmd_path ? WEXITSTATUS(ret) : 127;
+			free(cmd_path);
+			free(path);
+		}
+		ret = cmd_path ? ret : 127;
 	}
-	path = ft_itoa(ret);
-	msetenv(e, NULL, (cmd_path = ft_strjoin("?=", path)), 0);
-	free(path);
-	free(cmd_path);
+	else
+		ret--;
 	return (ret);
 }
 
 int					menv(t_env_item **env, char **args)
 {
 	t_env_item	*new_env;
+	int			ret;
 
+	ret = 0;
 	if (*args && !ft_strcmp(*args, "-i"))
 	{
 		new_env = NULL;
@@ -77,9 +78,9 @@ int					menv(t_env_item **env, char **args)
 	while (*args && ft_strchr(*args, '='))
 		msetenv(&new_env, NULL, *args++, 1);
 	if (*args)
-		launch_cmd(env, &new_env, args);
+		ret = launch_cmd(env, &new_env, args);
 	else
 		env_print(new_env);
 	env_free(&new_env);
-	return (0);
+	return (ret);
 }

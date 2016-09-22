@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/27 17:37:43 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/22 12:34:10 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/22 14:14:01 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,5 @@ char			*in_path(char *cmd, char *path);
 char			*cin_c2c(char *c1, char **c2);
 int				exec_cmd(t_shcmd *cmd, t_env_item **env);
 int				builtins(t_shcmd *cmd, t_env_item **env);
-void			sp_prompt(t_env_item *env);
+void			sp_prompt(t_env_item *env, int ret);
 #endif

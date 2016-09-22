@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/28 19:28:46 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/20 11:49:59 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/22 14:21:10 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,18 @@
 int			builtins(t_shcmd *cmd, t_env_item **env)
 {
 	char	*tmp;
+	int		ret;
 
+	ret = 0;
 	tmp = NULL;
 	if (!ft_strcmp(cmd->cmd, "cd"))
-		bi_cd(cmd->args, *env);
+		ret = bi_cd(cmd->args, *env);
 	else if (!ft_strcmp(cmd->cmd, "env"))
-		menv(env, cmd->args + 1);
+		ret = menv(env, cmd->args + 1);
 	else if (!ft_strcmp(cmd->cmd, "unsetenv"))
-		munsetenv(env, cmd->args[1]);
+		ret = munsetenv(env, cmd->args[1]);
 	else if (!ft_strcmp(cmd->cmd, "setenv"))
-		msetenv(env, NULL, cmd->args[1], 1);
+		ret = msetenv(env, NULL, cmd->args[1], 1);
 	else if (!ft_strcmp(cmd->cmd, "exit"))
 		myexit(env, cmd->args[1] ? cmd->args[1] : "0", NULL);
 	else if (!ft_strcmp(cmd->cmd, "pwd"))
@@ -35,7 +37,7 @@ int			builtins(t_shcmd *cmd, t_env_item **env)
 		return (0);
 	if (tmp)
 		free(tmp);
-	return (1);
+	return (ret + 1);
 }
 
 void		bi_echo(char **args)
