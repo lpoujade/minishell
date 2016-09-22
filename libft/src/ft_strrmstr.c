@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 13:55:56 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/22 17:54:08 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/22 18:04:01 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ char	*ft_strrmstr(char *str, char *torm)
 	int		c;
 	int		sec;
 	int		len;
-	ft_putstr("in : "); ft_putendl(str);
-	ft_putstr("tod: "); ft_putendl(torm);
 
 	c = 0;
 	sec = 0;
@@ -34,6 +32,5 @@ char	*ft_strrmstr(char *str, char *torm)
 		c++;
 	}
 	str[c] = 0;
-	ft_putstr("out: "); ft_putendl(str);
 	return (str);
 }

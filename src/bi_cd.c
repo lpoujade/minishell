@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 11:47:38 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/22 17:56:32 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/22 18:03:48 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ static char	*path_clean(char *path)
 	while (tmp)
 	{
 		buf = NULL;
-		ft_putendl(tmp);
 		if (*tmp == '.' && *(tmp + 1) == '.'
 				&& ((*(tmp + 2) == '/') || !*(tmp + 2)))
 			buf = strndup_wrap(prev, tmp);
@@ -96,33 +95,6 @@ static char	*cd_get_path(t_env_item *env, char *av)
 	else
 		fdir = cd_construct_path(env, av);
 	return (fdir);
-}
-
-static int	try_dir(char *dir, char *arg)
-{
-	int	ret;
-
-	if (access(dir, X_OK))
-	{
-		if (access(dir, F_OK))
-		{
-			ft_putstr_fd("minishell: no folder: ", 2);
-			ft_putendl_fd(arg, 2);
-		}
-		else
-		{
-			ft_putstr_fd("minishell: no rights for folder: ", 2);
-			ft_putendl_fd(arg, 2);
-		}
-		return (2);
-	}
-	else if ((ret = chdir(dir)))
-	{
-		ft_putstr_fd("minishell: unknow error for folder: ", 2);
-		ft_putendl_fd(arg, 2);
-		return (ret);
-	}
-	return (0);
 }
 
 int			bi_cd(char **av, t_env_item *env)
