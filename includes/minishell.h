@@ -6,7 +6,7 @@
 /*   By: lpoujade <lpoujade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/27 17:37:43 by lpoujade          #+#    #+#             */
-/*   Updated: 2016/09/22 18:03:17 by lpoujade         ###   ########.fr       */
+/*   Updated: 2016/09/22 18:40:32 by lpoujade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int				menv(t_env_item **env, char **args);
 int				env_populate(t_env_item **env, char **environ);
 int				env_fake_sort(t_list *t, t_list *n);
 int				msetenv(t_env_item **env, char **keyval, char *pair, int g);
+int				setenv_check(char *pair);
 int				munsetenv(t_env_item **env, char *key);
 char			**get_env_keys(t_env_item **env);
 char			*mgetenv(t_env_item *env, char *key);
