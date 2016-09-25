@@ -35,7 +35,8 @@ int				shparse(char *line, t_shcmd *cmd, t_env_item *env)
 
 	c = 0;
 	splitted = NULL;
-	cmd->args = ft_strsplit(line, " \t");
+	if (!(*(cmd->args = ft_strsplit(line, " \t"))))
+		return (-1);
 	cmd->cmd = cmd->args[0];
 	while (cmd->args[c])
 	{

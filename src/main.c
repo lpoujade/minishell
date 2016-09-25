@@ -78,13 +78,8 @@ void			shell_loop(t_env_item **env)
 			break ;
 		else
 		{
-			if (*line)
-			{
-				if (shparse(line, &cmd, *env) > 0)
+			if (*line && (shparse(line, &cmd, *env) > 0))
 					ret = exec_cmd(&cmd, env);
-				else
-					ft_putendl_fd("minishell: parse error", 2);
-			}
 			ft_strdel(&line);
 		}
 	}

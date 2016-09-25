@@ -40,12 +40,12 @@ OBJS=$(addprefix $(OBJDIR)/,$(OBJ))
 all: $(NAME)
 
 $(NAME): $(LIB) $(OBJS)
-	@echo "linking to\033[32m" $@ "\033[0m ... "
+	@echo -e "linking to\033[32m" $@ "\033[0m ... "
 	@$(CC) $^ -o $@ $(LDFLAGS) $(LDLIBS)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p .obj
-	@echo "compiling\033[36m" $@ "\033[0m ..."
+	@echo -e "compiling\033[36m" $@ "\033[0m ..."
 	@$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
 
 $(LIB):

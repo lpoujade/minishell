@@ -51,7 +51,7 @@ int				msetenv(t_env_item **env, char **keyval, char *pair, int g)
 	t_env_item *t;
 	t_env_item *a;
 
-	if (pair && setenv_check(pair))
+	if (!pair || setenv_check(pair))
 		return (1);
 	t = env_new_item(keyval, pair, g);
 	if (!*env && (*env = t))
@@ -79,6 +79,8 @@ int				munsetenv(t_env_item **env, char *key)
 	t_env_item	*a;
 
 	a = *env;
+	if (!key)
+		return (1);
 	if (!ft_strcmp(key, (*env)->keyval[0]))
 	{
 		if ((*env)->next)
